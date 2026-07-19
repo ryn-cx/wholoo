@@ -12,6 +12,7 @@ from get_around import GetAround
 
 from wholoo.exceptions import HTTPError
 from wholoo.movies import Movies
+from wholoo.search import Search
 from wholoo.tv import TV
 
 logger = getLogger(__name__)
@@ -33,6 +34,7 @@ class Wholoo:
 
         self.tv = TV(self)
         self.movies = Movies(self)
+        self.search = Search(self)
 
     def _headers(self, referer: str) -> dict[str, str]:
         """Headers for a same-site REST GET against ``discover.hulu.com``."""
