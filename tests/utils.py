@@ -30,20 +30,18 @@ def get_json_path(
     return endpoint.json_files_folder() / f"{name}.json"
 
 
-def parse_json[T: GAPIBaseModel](endpoint: BaseEndpoint[T], name: str) -> T:
+def parse_json[T: GAPIBaseModel](endpoint: BaseEndpoint[T, ...], name: str) -> T:
     json_path = get_json_path(endpoint, name)
     return endpoint.parse(json.loads(json_path.read_text()))
 
 
-# The loaders below produce each input shape that an ``extract`` helper accepts,
-# so extraction tests can parametrize over a single ``load`` callable.
-def single_dict(endpoint: BaseEndpoint[Any], name: str) -> dict[str, Any]:
+def single_dict(endpoint: BaseEndpoint[Any, ...], name: str) -> dict[str, Any]:
     """A single recorded page as a raw dict."""
     return json.loads(get_json_path(endpoint, name).read_text())
 
 
 def page_dicts(
-    endpoint: BaseEndpoint[Any],
+    endpoint: BaseEndpoint[Any, ...],
     name: str,
     *,
     folder: str | None = None,
@@ -56,7 +54,7 @@ def page_dicts(
 
 
 def page_models[T: GAPIBaseModel](
-    endpoint: BaseEndpoint[T],
+    endpoint: BaseEndpoint[T, ...],
     name: str,
     *,
     folder: str | None = None,

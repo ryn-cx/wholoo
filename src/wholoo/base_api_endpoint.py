@@ -1,19 +1,22 @@
-# TODO: Validate
 """Contains BaseEndpoint."""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from abc import abstractmethod
+from inspect import Parameter, signature
+from typing import TYPE_CHECKING, Any
 
 from good_ass_pydantic_integrator import GAPIBaseModel, GAPIClient
 
-from wholoo.constants import FILES_PATH
+from .constants import FILES_PATH
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from wholoo import Wholoo
 
 
-class BaseEndpoint[T: GAPIBaseModel](GAPIClient[T]):
+class BaseEndpoint[T: GAPIBaseModel, **P](GAPIClient[T]):
     """Base class for API endpoints."""
 
     JSON_FILES_ROOT = FILES_PATH
@@ -23,12 +26,40 @@ class BaseEndpoint[T: GAPIBaseModel](GAPIClient[T]):
         self._client = client
 
     @staticmethod
-    def append_non_default_args(
-        log_id: str,
-        **args: tuple[object, object],
-    ) -> str:
-        """Append ``name=value`` for each arg whose value differs from its default."""
-        for name, (value, default) in args.items():
-            if value != default:
-                log_id += f" {name}={value!r}"
-        return log_id
+    def non_default_args(
+        func: Callable[..., Any],
+        values: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Return the args that are changed from their default values."""
+        return {
+            name: values[name]
+            for name, param in signature(func).parameters.items()
+            if param.default is not Parameter.empty
+            and name in values
+            and values[name] != param.default
+        }
+
+    def get_log_id(self, func: Callable[..., Any], values: dict[str, Any]) -> str:
+        """Gets the log id.
+
+        Example: ClassName (arg1='value1' arg2='value2')
+        """
+        required = {
+            name: values[name]
+            for name, param in signature(func).parameters.items()
+            if param.default is Parameter.empty and name in values
+        }
+        set_args = {**required, **self.non_default_args(func, values)}
+        parts = [
+            *(f"{name}={value!r}" for name, value in set_args.items()),
+        ]
+
+        return f"{self.__class__.__name__} ({' '.join(parts)})"
+
+    @abstractmethod
+    def download(self, *args: P.args, **kwargs: P.kwargs) -> dict[str, Any]:
+        """Downloads the file."""
+
+    @abstractmethod
+    def download_and_parse(self, *args: P.args, **kwargs: P.kwargs) -> T:
+        """Downloads and parses the file."""

@@ -1,4 +1,3 @@
-# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -12,33 +11,27 @@ from tests.utils import download_and_save, parse_json
 if TYPE_CHECKING:
     from wholoo import Wholoo
     from wholoo.search import Search
+    from wholoo.search.models import SearchModel
 
 
-class SearchCase(BaseModel):
-    """A search response to download, parse, and check."""
-
+class TestData(BaseModel):
     query: str
-    """The search text to download."""
     name: str
-    """A safe filename for the recorded response of ``query``."""
     target_id: UUID
-    """The id of the title expected as the top result for ``query``."""
-    target_name: str
-    """The name of the title expected as the top result for ``query``."""
 
 
-CASES = [
-    SearchCase(
-        query="bob's burgers",
-        name="bobs-burgers",
-        target_id=UUID("fdeb1018-4472-442f-ba94-fb087cdea069"),
-        target_name="Bob's Burgers",
+TEST_DATA = [
+    # Search for TV
+    TestData(
+        query="The Bear",
+        name="the-bear",
+        target_id=UUID("05eb6a8e-90ed-4947-8c0b-e6536cbddd5f"),
     ),
-    SearchCase(
-        query="smiling friends",
-        name="smiling-friends",
-        target_id=UUID("77db3944-8426-4259-94c8-be147d3e7594"),
-        target_name="Smiling Friends",
+    # Search for movie
+    TestData(
+        query="The Wolf of Wall Street",
+        name="the-wolf-of-wall-street",
+        target_id=UUID("4ee4f57e-19bd-493f-96f9-ad3e753af981"),
     ),
 ]
 
@@ -48,26 +41,21 @@ def endpoint(client: Wholoo) -> Search:
     return client.search
 
 
-@pytest.fixture(params=CASES, ids=lambda case: case.name)
-def case(request: pytest.FixtureRequest) -> SearchCase:
+@pytest.fixture(params=TEST_DATA, ids=lambda test_data: test_data.name)
+def test_data(request: pytest.FixtureRequest) -> TestData:
     return request.param
 
 
 class TestSearch:
-    def test_download(self, endpoint: Search, case: SearchCase) -> None:
+    def test_download(self, endpoint: Search, test_data: TestData) -> None:
         download_and_save(
             endpoint,
-            case.name,
-            lambda: endpoint.download(case.query),
+            test_data.name,
+            lambda: endpoint.download(test_data.query, limit=1),
         )
 
-    def test_parse(self, endpoint: Search, case: SearchCase) -> None:
-        search = parse_json(endpoint, case.name)
+    def test_parse(self, endpoint: Search, test_data: TestData) -> None:
+        search: SearchModel = parse_json(endpoint, test_data.name)
         top = search.groups[0].results[0].metrics_info
-        assert top.target_id == case.target_id
-        assert top.target_name == case.target_name
-
-
-def test_log_id(endpoint: Search) -> None:
-    query = CASES[0].query
-    assert endpoint.get_log_id(query) == f"Search query={query!r}"
+        assert top.target_id == test_data.target_id
+        assert top.target_name == test_data.query

@@ -1,37 +1,20 @@
-# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from uuid import UUID
 
 import pytest
-from pydantic import BaseModel
 
-from tests.utils import download_and_save, parse_json
+from tests.utils import assert_error, download_and_save, parse_json
+from wholoo.exceptions import HTTPError
 
 if TYPE_CHECKING:
     from wholoo import Wholoo
     from wholoo.movies import Movies
 
 
-class MoviesCase(BaseModel):
-    """A movies response to download, parse, and check."""
-
-    movie_id: UUID
-    """The Hulu movie id to download and the id every response should report."""
-    name: str
-    """A safe filename for the recorded response of ``movie_id``."""
-    title: str
-    """The movie name every response for ``movie_id`` should report."""
-
-
-CASES = [
-    MoviesCase(
-        movie_id=UUID("4ee4f57e-19bd-493f-96f9-ad3e753af981"),
-        name="the-wolf-of-wall-street",
-        title="The Wolf of Wall Street",
-    ),
-]
+TEST_DATA = (UUID("4ee4f57e-19bd-493f-96f9-ad3e753af981"),)
+INVALID_MOVIE_ID_TEST_DATA = (UUID("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), "AAAAAAAA")
 
 
 @pytest.fixture(scope="session")
@@ -39,25 +22,37 @@ def endpoint(client: Wholoo) -> Movies:
     return client.movies
 
 
-@pytest.fixture(params=CASES, ids=lambda case: case.name)
-def case(request: pytest.FixtureRequest) -> MoviesCase:
+@pytest.fixture(params=TEST_DATA, ids=str)
+def test_data(request: pytest.FixtureRequest) -> UUID:
+    return request.param
+
+
+@pytest.fixture(params=INVALID_MOVIE_ID_TEST_DATA, ids=str)
+def invalid_movie_id_test_data(request: pytest.FixtureRequest) -> UUID | str:
     return request.param
 
 
 class TestMovies:
-    def test_download(self, endpoint: Movies, case: MoviesCase) -> None:
+    def test_download(self, endpoint: Movies, test_data: UUID) -> None:
         download_and_save(
             endpoint,
-            case.name,
-            lambda: endpoint.download(str(case.movie_id)),
+            str(test_data),
+            lambda: endpoint.download(str(test_data)),
         )
 
-    def test_parse(self, endpoint: Movies, case: MoviesCase) -> None:
-        movie = parse_json(endpoint, case.name)
-        assert movie.id == case.movie_id
-        assert movie.name == case.title
+    def test_parse(self, endpoint: Movies, test_data: UUID) -> None:
+        movie = parse_json(endpoint, str(test_data))
+        assert movie.id == test_data
 
-
-def test_log_id(endpoint: Movies) -> None:
-    movie_id = str(CASES[0].movie_id)
-    assert endpoint.get_log_id(movie_id) == f"Movies content_id={movie_id!r}"
+    def test_invalid_content_id(
+        self,
+        endpoint: Movies,
+        invalid_movie_id_test_data: UUID | str,
+    ) -> None:
+        test_data = invalid_movie_id_test_data
+        assert_error(
+            endpoint,
+            str(test_data),
+            lambda: endpoint.download(str(test_data)),
+            HTTPError,
+        )

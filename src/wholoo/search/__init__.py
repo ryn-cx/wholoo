@@ -1,10 +1,9 @@
-# TODO: Validate
 """Contains the Search class."""
 
 from __future__ import annotations
 
 from logging import NullHandler, getLogger
-from typing import Any
+from typing import Any, override
 
 from wholoo.base_api_endpoint import BaseEndpoint
 from wholoo.search.models import SearchModel
@@ -12,39 +11,47 @@ from wholoo.search.models import SearchModel
 logger = getLogger(__name__)
 logger.addHandler(NullHandler())
 
-# The discover search endpoint. A plain REST GET on ``discover.hulu.com`` that
-# returns entity search results grouped by category (``top results`` etc.).
-_SEARCH_URL = "https://discover.hulu.com/content/v5/search/entity"
 
+class Search(BaseEndpoint[SearchModel, [str]]):
+    """Wraps `GET https://discover.hulu.com/content/v5/search/entity`.
 
-class Search(BaseEndpoint[SearchModel]):
-    """Manage the search file.
+    Source: Returned when searching at https://www.hulu.com/search (must be logged in).
 
-    Wraps ``GET https://discover.hulu.com/content/v5/search/entity``, the query
-    that backs Hulu's search page.
+    Example request headers:
+    - GET /content/v5/search/entity?
+        - language=en
+        - device_context_id=2
+        - search_query=SEARCH_TERM
+        - limit=64
+        - include_offsite=true
+        - v=__REDACTED__
+            - This was a UUID, not sure waht it does so it was redacted just in
+                case.
+        - schema=3
+        - device_info=web:4.44.1
+        - referralHost=production
+        - keywords=SEARCH_TERM
+        - type=entity
+        - limit=64
+        - HTTP/2
+    - Host: discover.hulu.com
+    - User-Agent: __REDACTED__
+    - Accept: */*
+    - Accept-Language: en-US,en;q=0.9
+    - Accept-Encoding: gzip, deflate, br, zstd
+    - Referer: https://www.hulu.com/
+    - Origin: https://www.hulu.com
+    - Sec-Fetch-Dest: empty
+    - Sec-Fetch-Mode: cors
+    - Sec-Fetch-Site: same-site
+    - Connection: keep-alive
+    - Cookie: __REDACTED__
+    - Priority: u=4
     """
 
     _response_model = SearchModel
 
-    def get_log_id(self, query: str) -> str:
-        """Build the log id for a download."""
-        return f"{self.__class__.__name__} {query=}"
-
-    @staticmethod
-    def _params(query: str, limit: int, *, include_offsite: bool) -> dict[str, str]:
-        return {
-            "language": "en",
-            "device_context_id": "2",
-            "search_query": query,
-            "keywords": query,
-            "type": "entity",
-            "limit": str(limit),
-            "include_offsite": "true" if include_offsite else "false",
-            "schema": "3",
-            "device_info": "web:4.44.1",
-            "referralHost": "production",
-        }
-
+    @override
     def download(
         self,
         query: str,
@@ -52,21 +59,33 @@ class Search(BaseEndpoint[SearchModel]):
         limit: int = 64,
         include_offsite: bool = True,
     ) -> dict[str, Any]:
-        """Downloads the entity search results for a query.
+        log_id = self.get_log_id(self.download, locals())
 
-        Args:
-            query: The search text, e.g. ``"bob's burgers"``.
-            limit: The maximum number of results to return (default ``64``).
-            include_offsite: Whether to include titles that are not streamable on
-                Hulu itself (default ``True``), mirroring the web player.
-        """
-        return self._client.download(
-            _SEARCH_URL,
-            referer="https://www.hulu.com/search",
-            params=self._params(query, limit, include_offsite=include_offsite),
-            log_id=self.get_log_id(query),
+
+        params = (
+            ("language", "en"),
+            ("device_context_id", "2"),
+            ("search_query", query),
+            ("limit", str(limit)),
+            ("include_offsite", "true" if include_offsite else "false"),
+            # ("v", ...), The client sends a UUID which may or may not be private.
+            ("schema", "3"),
+            ("device_info", "web:4.44.1"),
+            ("referralHost", "production"),
+            ("keywords", query),
+            ("type", "entity"),
+            # Limit is duplicated intentionally to match the real request.
+            ("limit", str(limit)),
         )
 
+        return self._client.download(
+            "https://discover.hulu.com/content/v5/search/entity",
+            referer="https://www.hulu.com/search",
+            params=params,
+            log_id=log_id,
+        )
+
+    @override
     def download_and_parse(
         self,
         query: str,
@@ -74,7 +93,6 @@ class Search(BaseEndpoint[SearchModel]):
         limit: int = 64,
         include_offsite: bool = True,
     ) -> SearchModel:
-        """Downloads and parses the entity search results for a query."""
         return self.parse(
             self.download(query, limit=limit, include_offsite=include_offsite),
         )

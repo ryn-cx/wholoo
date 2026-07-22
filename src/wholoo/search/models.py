@@ -5,7 +5,7 @@ from typing import Any
 
 class MetricsInfo(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_type: str
     target_name: str
     selection_tracking_id: UUID
@@ -78,6 +78,16 @@ class ShortSubtitle(GAPIBaseModel):
     text: str
     index: list[None]
 
+class Subtitle(GAPIBaseModel):
+    model_config = ConfigDict(extra='forbid')
+    text: str
+    index: list[list[int]]
+
+class ShortBody(GAPIBaseModel):
+    model_config = ConfigDict(extra='forbid')
+    text: str
+    index: list[list[int]]
+
 class Visuals(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
     artwork: Artwork
@@ -85,7 +95,9 @@ class Visuals(GAPIBaseModel):
     body: Body | None = None
     action_text: str
     primary_branding: PrimaryBranding | None = None
-    short_subtitle: ShortSubtitle
+    short_subtitle: ShortSubtitle | None = None
+    subtitle: Subtitle | None = None
+    short_body: ShortBody | None = None
 
 class Params(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
@@ -94,14 +106,14 @@ class Params(GAPIBaseModel):
 class MetricsInfo1(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
     action_type: str
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_type: str
     target_display_name: str
 
 class Browse(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
     target_type: str
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_name: str
     target_theme: str
     params: Params
@@ -265,12 +277,23 @@ class Playback(GAPIBaseModel):
 class Actions(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
     browse: Browse
-    context_menu: ContextMenu
+    context_menu: ContextMenu | None = None
     playback: Playback | None = None
 
 class Rating(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
     code: str | None = None
+
+class Availability1(GAPIBaseModel):
+    model_config = ConfigDict(extra='forbid')
+    field_type: str = Field(..., alias='_type')
+    start_date: AwareDatetime
+    end_date: AwareDatetime
+    location_requirement: str
+    is_available: bool
+    stormflow_id: UUID | None = None
+    airing_start_date: AwareDatetime | None = None
+    airing_end_date: AwareDatetime | None = None
 
 class EntityMetadata(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
@@ -280,7 +303,9 @@ class EntityMetadata(GAPIBaseModel):
     target_name: str
     is_warm: bool
     network_name: str | None = None
-    availability: Availability | None = None
+    availability: Availability1 | None = None
+    league_name: str | None = None
+    sport_name: str | None = None
 
 class Result(GAPIBaseModel):
     model_config = ConfigDict(extra='forbid')
