@@ -53,8 +53,10 @@ class BaseEndpoint[T: GAPIBaseModel, **P](GAPIClient[T]):
         parts = [
             *(f"{name}={value!r}" for name, value in set_args.items()),
         ]
-
-        return f"{self.__class__.__name__} ({' '.join(parts)})"
+        name = self.__class__.__name__
+        if not parts:
+            return name
+        return f"{name} ({' '.join(parts)})"
 
     @abstractmethod
     def download(self, *args: P.args, **kwargs: P.kwargs) -> dict[str, Any]:
