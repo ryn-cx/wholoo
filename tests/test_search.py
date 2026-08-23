@@ -1,61 +1,54 @@
+# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from uuid import UUID
 
 import pytest
-from pydantic import BaseModel
 
-from tests.utils import download_and_save, parse_json
+from tests.utils import RecordedEndpoint
+from wholoo.search.models import SearchModel
 
 if TYPE_CHECKING:
     from wholoo import Wholoo
-    from wholoo.search import Search
-    from wholoo.search.models import SearchModel
 
+# The recordings were made asking for one result, so that is what the tests
+# keep asking for.
+LIMIT = 1
 
-class TestData(BaseModel):
-    query: str
-    name: str
-    target_id: UUID
-
-
-TEST_DATA = [
-    # Search for TV
-    TestData(
-        query="The Bear",
-        name="the-bear",
-        target_id=UUID("05eb6a8e-90ed-4947-8c0b-e6536cbddd5f"),
-    ),
-    # Search for movie
-    TestData(
-        query="The Wolf of Wall Street",
-        name="the-wolf-of-wall-street",
-        target_id=UUID("4ee4f57e-19bd-493f-96f9-ad3e753af981"),
-    ),
+QUERIES = [
+    pytest.param("The Bear", "the-bear", id="series"),
+    pytest.param("The Wolf of Wall Street", "the-wolf-of-wall-street", id="movie"),
+    # A query matching no title is still answered with whatever is nearest, so
+    # what it lands on is not something to hold the test to.
+    pytest.param("zzqqxxwwvvjjkk", "gibberish", id="gibberish"),
 ]
 
-
-@pytest.fixture(scope="session")
-def endpoint(client: Wholoo) -> Search:
-    return client.search
+EXPECTED_TYPES = {"the-bear": "series", "the-wolf-of-wall-street": "movie"}
+"""What kind of title each search is expected to match, where it is known."""
 
 
-@pytest.fixture(params=TEST_DATA, ids=lambda test_data: test_data.name)
-def test_data(request: pytest.FixtureRequest) -> TestData:
-    return request.param
+# TODO: Validate
+class SearchTest(RecordedEndpoint):
+    MODEL = SearchModel
+    # A search is tagged with a tracking id that is new every time it is run.
+    IGNORED = ("MetricsInfo.selection_tracking_id",)
 
 
-class TestSearch:
-    def test_download(self, endpoint: Search, test_data: TestData) -> None:
-        download_and_save(
-            endpoint,
-            test_data.name,
-            lambda: endpoint.download(test_data.query, limit=1),
-        )
+# TODO: Validate
+@pytest.mark.parametrize(("query", "name"), QUERIES)
+def test_download(client: Wholoo, query: str, name: str) -> None:
+    SearchTest.download_test(name, lambda: client.search.download(query, limit=LIMIT))
 
-    def test_parse(self, endpoint: Search, test_data: TestData) -> None:
-        search: SearchModel = parse_json(endpoint, test_data.name)
-        top = search.groups[0].results[0].metrics_info
-        assert top.target_id == test_data.target_id
-        assert top.target_name == test_data.query
+
+# TODO: Validate
+@pytest.mark.parametrize(("query", "name"), QUERIES)
+def test_parse(client: Wholoo, query: str, name: str) -> None:
+    data = client.search.load(SearchTest.recorded_content(name))
+    results = [result for group in data.groups for result in group.results]
+    assert results
+
+    expected_type = EXPECTED_TYPES.get(name)
+    if expected_type is None:
+        return
+    assert query in [result.metrics_info.target_name for result in results]
+    assert expected_type in [result.metrics_info.target_type for result in results]

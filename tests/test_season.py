@@ -1,106 +1,84 @@
+# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from uuid import UUID
 
 import pytest
-from pydantic import BaseModel
 
-from tests.utils import assert_error, download_and_save, parse_json
-from wholoo.exceptions import HTTPError, InvalidSeasonError
+from tests.utils import RecordedEndpoint
+from wholoo.exceptions import SeasonNotFoundError
+from wholoo.season.models import SeasonModel
 
 if TYPE_CHECKING:
     from wholoo import Wholoo
-    from wholoo.season import Season
 
-
-class TestData(BaseModel):
-    series_id: UUID | None
-    season: int
-    name: str
-
-
-TEST_DATA = [
-    TestData(
-        series_id=UUID("77db3944-8426-4259-94c8-be147d3e7594"),
-        season=3,
-        name="smiling-friends-season-3",
+SEASONS = [
+    # https://www.hulu.com/series/fdeb1018-4472-442f-ba94-fb087cdea069
+    pytest.param(
+        "fdeb1018-4472-442f-ba94-fb087cdea069",
+        2,
+        "bobs-burgers-season-2",
+        id="bob's burgers season 2",
+    ),
+    # A season part way through airing lists episodes that cannot be played
+    # yet, and those come without a runtime.
+    # https://www.hulu.com/series/77db3944-8426-4259-94c8-be147d3e7594
+    pytest.param(
+        "77db3944-8426-4259-94c8-be147d3e7594",
+        3,
+        "smiling-friends-season-3",
+        id="smiling friends season 3",
     ),
 ]
 
 
-INVALID_SERIES_ID_TEST_DATA = [
-    TestData(
-        series_id=UUID("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"),
-        season=3,
-        name="invalid-series-id",
-    ),
-]
+# TODO: Validate
+class SeasonTest(RecordedEndpoint):
+    MODEL = SeasonModel
 
 
-INVALID_SEASON_TEST_DATA = [
-    TestData(
-        series_id=UUID("77db3944-8426-4259-94c8-be147d3e7594"),
-        season=4,
-        name="invalid-season",
-    ),
-]
+# TODO: Validate
+@pytest.mark.parametrize(("series_id", "season", "name"), SEASONS)
+def test_download(client: Wholoo, series_id: str, season: int, name: str) -> None:
+    SeasonTest.download_test(name, lambda: client.season.download(series_id, season))
 
 
-@pytest.fixture(scope="session")
-def endpoint(client: Wholoo) -> Season:
-    return client.tv.season
+# TODO: Validate
+@pytest.mark.parametrize(("series_id", "season", "name"), SEASONS)
+def test_parse(client: Wholoo, series_id: str, season: int, name: str) -> None:
+    data = client.season.load(SeasonTest.recorded_content(name))
+    assert data.id == f"{series_id}::{season}"
+    assert data.series_grouping_metadata.season_number == season
+    assert data.items
+    assert all(str(item.series_id) == series_id for item in data.items)
 
 
-@pytest.fixture(params=TEST_DATA, ids=lambda test_data: test_data.name)
-def test_data(request: pytest.FixtureRequest) -> TestData:
-    return request.param
-
-
-@pytest.fixture(params=INVALID_SERIES_ID_TEST_DATA, ids=lambda test_data: test_data.name)
-def invalid_series_id_test_data(request: pytest.FixtureRequest) -> TestData:
-    return request.param
-
-
-@pytest.fixture(params=INVALID_SEASON_TEST_DATA, ids=lambda test_data: test_data.name)
-def invalid_season_test_data(request: pytest.FixtureRequest) -> TestData:
-    return request.param
-
-
-class TestSeason:
-    def test_download(self, endpoint: Season, test_data: TestData) -> None:
-        download_and_save(
-            endpoint,
-            test_data.name,
-            lambda: endpoint.download(str(test_data.series_id), test_data.season),
-        )
-
-    def test_parse(self, endpoint: Season, test_data: TestData) -> None:
-        season = parse_json(endpoint, test_data.name)
-        assert season.id == f"{test_data.series_id}::{test_data.season}"
-
-    def test_invalid_series_id(
-        self,
-        endpoint: Season,
-        invalid_series_id_test_data: TestData,
-    ) -> None:
-        test_data = invalid_series_id_test_data
-        assert_error(
-            endpoint,
-            test_data.name,
-            lambda: endpoint.download(str(test_data.series_id), test_data.season),
-            HTTPError,
-        )
-
-    def test_invalid_season(
-        self,
-        endpoint: Season,
-        invalid_season_test_data: TestData,
-    ) -> None:
-        test_data = invalid_season_test_data
-        assert_error(
-            endpoint,
-            test_data.name,
-            lambda: endpoint.download(str(test_data.series_id), test_data.season),
-            InvalidSeasonError,
-        )
+# TODO: Validate
+@pytest.mark.parametrize(
+    ("series_id", "season", "name"),
+    [
+        pytest.param(
+            "fdeb1018-4472-442f-ba94-fb087cdea069",
+            999,
+            "bobs-burgers-season-999",
+            id="season the series does not have",
+        ),
+        pytest.param(
+            "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            1,
+            "unknown-series-season-1",
+            id="series that does not exist",
+        ),
+    ],
+)
+def test_download_invalid(
+    client: Wholoo,
+    series_id: str,
+    season: int,
+    name: str,
+) -> None:
+    SeasonTest.error_test(
+        name,
+        lambda: client.season.download(series_id, season),
+        SeasonNotFoundError,
+    )

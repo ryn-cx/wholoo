@@ -1,58 +1,68 @@
+# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from uuid import UUID
 
 import pytest
 
-from tests.utils import assert_error, download_and_save, parse_json
-from wholoo.exceptions import HTTPError
+from tests.utils import RecordedEndpoint
+from wholoo.exceptions import HTTPError, MovieNotFoundError
+from wholoo.movies.models import MoviesModel
 
 if TYPE_CHECKING:
     from wholoo import Wholoo
-    from wholoo.movies import Movies
+
+CONTENT_IDS = [
+    # https://www.hulu.com/movie/4ee4f57e-19bd-493f-96f9-ad3e753af981
+    pytest.param("4ee4f57e-19bd-493f-96f9-ad3e753af981", id="the wolf of wall street"),
+]
 
 
-TEST_DATA = (UUID("4ee4f57e-19bd-493f-96f9-ad3e753af981"),)
-INVALID_MOVIE_ID_TEST_DATA = (UUID("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), "AAAAAAAA")
+# TODO: Validate
+class MoviesTest(RecordedEndpoint):
+    MODEL = MoviesModel
 
 
-@pytest.fixture(scope="session")
-def endpoint(client: Wholoo) -> Movies:
-    return client.movies
+# TODO: Validate
+@pytest.mark.parametrize("content_id", CONTENT_IDS)
+def test_download(client: Wholoo, content_id: str) -> None:
+    MoviesTest.download_test(content_id, lambda: client.movies.download(content_id))
 
 
-@pytest.fixture(params=TEST_DATA, ids=str)
-def test_data(request: pytest.FixtureRequest) -> UUID:
-    return request.param
+# TODO: Validate
+@pytest.mark.parametrize("content_id", CONTENT_IDS)
+def test_parse(client: Wholoo, content_id: str) -> None:
+    data = client.movies.load(MoviesTest.recorded_content(content_id))
+    assert str(data.id) == content_id
+    assert data.details.entity
 
 
-@pytest.fixture(params=INVALID_MOVIE_ID_TEST_DATA, ids=str)
-def invalid_movie_id_test_data(request: pytest.FixtureRequest) -> UUID | str:
-    return request.param
+# TODO: Validate
+@pytest.mark.parametrize(
+    "content_id",
+    [
+        pytest.param(
+            "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            id="movie that does not exist",
+        ),
+    ],
+)
+def test_download_invalid(client: Wholoo, content_id: str) -> None:
+    MoviesTest.error_test(
+        content_id,
+        lambda: client.movies.download(content_id),
+        MovieNotFoundError,
+    )
 
 
-class TestMovies:
-    def test_download(self, endpoint: Movies, test_data: UUID) -> None:
-        download_and_save(
-            endpoint,
-            str(test_data),
-            lambda: endpoint.download(str(test_data)),
-        )
-
-    def test_parse(self, endpoint: Movies, test_data: UUID) -> None:
-        movie = parse_json(endpoint, str(test_data))
-        assert movie.id == test_data
-
-    def test_invalid_content_id(
-        self,
-        endpoint: Movies,
-        invalid_movie_id_test_data: UUID | str,
-    ) -> None:
-        test_data = invalid_movie_id_test_data
-        assert_error(
-            endpoint,
-            str(test_data),
-            lambda: endpoint.download(str(test_data)),
-            HTTPError,
-        )
+# TODO: Validate
+@pytest.mark.parametrize(
+    "content_id",
+    [pytest.param("AAAAAAAA", id="id that is not shaped like one")],
+)
+def test_download_malformed(client: Wholoo, content_id: str) -> None:
+    MoviesTest.error_test(
+        content_id,
+        lambda: client.movies.download(content_id),
+        HTTPError,
+    )

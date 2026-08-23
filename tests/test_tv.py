@@ -1,58 +1,68 @@
+# TODO: Validate
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from uuid import UUID
 
 import pytest
 
-from tests.utils import assert_error, download_and_save, parse_json
-from wholoo.exceptions import HTTPError
+from tests.utils import RecordedEndpoint
+from wholoo.exceptions import HTTPError, SeriesNotFoundError
+from wholoo.tv.models import TVModel
 
 if TYPE_CHECKING:
     from wholoo import Wholoo
-    from wholoo.tv import TV
+
+CONTENT_IDS = [
+    # https://www.hulu.com/series/fdeb1018-4472-442f-ba94-fb087cdea069
+    pytest.param("fdeb1018-4472-442f-ba94-fb087cdea069", id="bob's burgers"),
+]
 
 
-TEST_DATA = (UUID("fdeb1018-4472-442f-ba94-fb087cdea069"),)
-INVALID_SERIES_ID_TEST_DATA = (UUID("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"), "AAAAAAAA")
+# TODO: Validate
+class TVTest(RecordedEndpoint):
+    MODEL = TVModel
 
 
-@pytest.fixture(scope="session")
-def endpoint(client: Wholoo) -> TV:
-    return client.tv
+# TODO: Validate
+@pytest.mark.parametrize("content_id", CONTENT_IDS)
+def test_download(client: Wholoo, content_id: str) -> None:
+    TVTest.download_test(content_id, lambda: client.tv.download(content_id))
 
 
-@pytest.fixture(params=TEST_DATA, ids=str)
-def test_data(request: pytest.FixtureRequest) -> UUID:
-    return request.param
+# TODO: Validate
+@pytest.mark.parametrize("content_id", CONTENT_IDS)
+def test_parse(client: Wholoo, content_id: str) -> None:
+    data = client.tv.load(TVTest.recorded_content(content_id))
+    assert str(data.id) == content_id
+    assert data.components
 
 
-@pytest.fixture(params=INVALID_SERIES_ID_TEST_DATA, ids=str)
-def invalid_series_id_test_data(request: pytest.FixtureRequest) -> UUID | str:
-    return request.param
+# TODO: Validate
+@pytest.mark.parametrize(
+    "content_id",
+    [
+        pytest.param(
+            "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+            id="series that does not exist",
+        ),
+    ],
+)
+def test_download_invalid(client: Wholoo, content_id: str) -> None:
+    TVTest.error_test(
+        content_id,
+        lambda: client.tv.download(content_id),
+        SeriesNotFoundError,
+    )
 
 
-class TestTV:
-    def test_download(self, endpoint: TV, test_data: UUID) -> None:
-        download_and_save(
-            endpoint,
-            str(test_data),
-            lambda: endpoint.download(str(test_data)),
-        )
-
-    def test_parse(self, endpoint: TV, test_data: UUID) -> None:
-        series = parse_json(endpoint, str(test_data))
-        assert series.id == test_data
-
-    def test_invalid_content_id(
-        self,
-        endpoint: TV,
-        invalid_series_id_test_data: UUID | str,
-    ) -> None:
-        test_data = invalid_series_id_test_data
-        assert_error(
-            endpoint,
-            str(test_data),
-            lambda: endpoint.download(str(test_data)),
-            HTTPError,
-        )
+# TODO: Validate
+@pytest.mark.parametrize(
+    "content_id",
+    [pytest.param("AAAAAAAA", id="id that is not shaped like one")],
+)
+def test_download_malformed(client: Wholoo, content_id: str) -> None:
+    TVTest.error_test(
+        content_id,
+        lambda: client.tv.download(content_id),
+        HTTPError,
+    )

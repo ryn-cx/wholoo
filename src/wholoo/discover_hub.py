@@ -1,60 +1,71 @@
 # TODO: Validate
-"""Shared base for ``discover.hulu.com`` content-hub endpoints."""
+"""Contains the DiscoverHub class."""
 
 from __future__ import annotations
 
 import random
-from typing import Any, ClassVar, override
-
-from good_ass_pydantic_integrator import GAPIBaseModel
+from logging import NullHandler, getLogger
+from typing import ClassVar
 
 from wholoo.base_api_endpoint import BaseEndpoint
 
-# The discover content API that backs a title's details page. A plain REST GET on
-# ``discover.hulu.com`` that returns the full, unfiltered details hub. The
-# ``{content_type}`` segment is ``movie`` or ``series``.
-_HUB_URL = "https://discover.hulu.com/content/v5/hubs/{content_type}/{content_id}"
+logger = getLogger(__name__)
+logger.addHandler(NullHandler())
 
 
-class DiscoverHubEndpoint[T: GAPIBaseModel](BaseEndpoint[T, [str]]):
-    """Base for a ``discover.hulu.com/content/v5/hubs/<type>/<id>`` endpoint.
+# TODO: Validate
+class DiscoverHub(BaseEndpoint):
+    """Base class for the details hub of one title.
 
-    Subclasses set :attr:`_content_type` (``"movie"`` / ``"series"``) and
-    :attr:`_response_model`.
+    A movie's details page and a series' details page are the same request with
+    a different segment in the middle of the URL, so the request is written
+    once here and each endpoint says only which kind of title it asks about.
+
+    Source: https://www.hulu.com/{content_type}/{content_id}
+
+    Example request:
+        - GET /content/v5/hubs/{content_type}/{content_id}?
+            - schema=3&
+            - limit=1999&
+            - device_info=web:4.44.1&
+            - referralHost=production&
+            - cacheKey={cache_key}&
+            - pageType=DETAILS
+            - HTTP/2
+        - Host: discover.hulu.com
+        - User-Agent: __REDACTED__
+        - Accept: */*
+        - Accept-Language: en-US,en;q=0.9
+        - Accept-Encoding: gzip, deflate, br, zstd
+        - Referer: https://www.hulu.com/{content_type}/{content_id}
+        - Origin: https://www.hulu.com
+        - Sec-Fetch-Dest: empty
+        - Sec-Fetch-Mode: cors
+        - Sec-Fetch-Site: same-site
+        - Connection: keep-alive
+        - Cookie: __REDACTED__
+        - Priority: u=4
     """
 
-    _content_type: ClassVar[str]
+    content_type: ClassVar[str]
+    """The kind of title this endpoint asks about, movie or series."""
 
-    @staticmethod
-    def _params(cache_key: str) -> dict[str, str]:
-        return {
-            "schema": "3",
-            "limit": "1999",
-            "device_info": "web:4.44.1",
-            "referralHost": "production",
-            "cacheKey": cache_key,
-            "pageType": "DETAILS",
-        }
-
-    @override
-    def download(
-        self,
-        content_id: str,
-        *,
-        cache_key: str | None = None,
-    ) -> dict[str, Any]:
-        log_id = self.get_log_id(self.download, locals())
-        if cache_key is None:
-            cache_key = str(random.random())  # noqa: S311 - cache-buster, not crypto.
-        url = _HUB_URL.format(content_type=self._content_type, content_id=content_id)
-        referer = f"https://www.hulu.com/{self._content_type}/{content_id}"
+    # TODO: Validate
+    def _download(self, content_id: str, cache_key: str | None, log_id: str) -> str:
+        """Download one title's details hub."""
         return self._client.download(
-            url,
-            referer=referer,
-            params=self._params(cache_key),
+            endpoint=f"content/v5/hubs/{self.content_type}/{content_id}",
+            params={
+                "schema": "3",
+                "limit": "1999",
+                "device_info": "web:4.44.1",
+                "referralHost": "production",
+                # A cache buster rather than anything the API reads.
+                "cacheKey": cache_key or str(random.random()),  # noqa: S311
+                "pageType": "DETAILS",
+            },
+            headers={
+                "Referer": f"https://www.hulu.com/{self.content_type}/{content_id}",
+            },
             log_id=log_id,
         )
-
-    @override
-    def download_and_parse(self, content_id: str) -> T:
-        return self.parse(self.download(content_id))

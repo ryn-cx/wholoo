@@ -1,90 +1,138 @@
+# TODO: Validate
 """Contains the Wholoo class."""
 
 from __future__ import annotations
 
-import time
 from http import HTTPStatus
 from logging import NullHandler, getLogger
-from typing import TYPE_CHECKING, Any
+from time import monotonic, sleep
+from typing import TYPE_CHECKING
 
 from get_around import GetAround
 
-from wholoo.exceptions import CookieError, HTTPError
+from wholoo.exceptions import CookieError, HTTPError, ResourceNotFoundError
 from wholoo.movies import Movies
 from wholoo.search import Search
+from wholoo.season import Season
 from wholoo.tv import TV
 
 if TYPE_CHECKING:
-    from httpx._types import QueryParamTypes
+    from collections.abc import Mapping
 
 logger = getLogger(__name__)
 logger.addHandler(NullHandler())
 
+API_DOMAIN = "discover.hulu.com"
+WEB_ORIGIN = "https://www.hulu.com"
 
+type Params = Mapping[str, str] | list[tuple[str, str]]
+"""Query parameters, as a mapping or as pairs when a name is repeated."""
+
+
+# TODO: Validate
 class Wholoo:
     """Hulu API wrapper."""
 
-    def __init__(self, get_around_client: GetAround | None = None) -> None:
-        """Initialize the Wholoo client."""
-        self.get_around_client = get_around_client or GetAround()
-        self.cookie: str = ""
+    # TODO: Validate
+    def __init__(
+        self,
+        get_around_client: GetAround | None = None,
+        sleep_time: float = 0,
+    ) -> None:
+        """Initializes the Wholoo client.
 
-        self.tv = TV(self)
+        The client holds one attribute per endpoint, so `client.movies(id)`
+        looks a movie up and `client.movies.download(id)` and
+        `client.movies.load(data)` are the halves of it.
+        """
+        self.get_around_client = get_around_client or GetAround()
+        self.sleep_time = sleep_time
+        self._cookie_value = ""
+
         self.movies = Movies(self)
+        self.tv = TV(self)
+        self.season = Season(self)
         self.search = Search(self)
 
-    def _headers(self, referer: str) -> dict[str, str]:
-        return {
-            # "Host": Set by httpx
-            # "User-Agent":  Set by httpx
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
-            # "Accept-Encoding": Set by httpx
-            "Referer": referer,
-            "Origin": "https://www.hulu.com",
-            "Sec-Fetch-Dest": "empty",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "same-site",
-            # "Connection": Set by httpx
-            "Cookie": self._fetch_cookie(),
-            "Priority": "u=4",
-        }
+    # TODO: Validate
+    @property
+    def _cookie(self) -> str:
+        if not self._cookie_value:
+            self._download_cookie()
+        return self._cookie_value
 
-    def _fetch_cookie(self) -> str:
-        if self.cookie:
-            return self.cookie
+    # TODO: Validate
+    def _download_cookie(self) -> None:
+        """Ask hulu.com for a session cookie.
 
-        response = self.get_around_client.get("https://www.hulu.com/")
+        Raises:
+            CookieError: If the site answers without setting any cookie.
+        """
+        logger.debug("Downloading cookie:")
+        start = monotonic()
+        response = self.get_around_client.get(f"{WEB_ORIGIN}/")
+
         cookies: dict[str, str] = {}
         for set_cookie in response.headers.get_list("set-cookie"):
             name, separator, remainder = set_cookie.partition("=")
             if separator:
                 cookies[name.strip()] = remainder.split(";", 1)[0].strip()
         if not cookies:
-            msg = "No session cookie returned by https://www.hulu.com/"
+            msg = f"No session cookie returned by {WEB_ORIGIN}/"
             raise CookieError(msg)
-        self.cookie = "; ".join(f"{name}={value}" for name, value in cookies.items())
-        return self.cookie
 
+        logger.debug("Downloaded cookie (%.4f s)", monotonic() - start)
+        self._cookie_value = "; ".join(
+            f"{name}={value}" for name, value in cookies.items()
+        )
+
+    # TODO: Validate
     def download(
         self,
-        url: str,
-        referer: str,
-        *,
-        params: QueryParamTypes,
+        endpoint: str,
+        params: Params,
+        headers: dict[str, str],
         log_id: str,
-    ) -> dict[str, Any]:
-        """Download a URL and return its JSON response."""
+    ) -> str:
+        """Downloads from the API.
+
+        What comes back is the body as it was served, and reading it into a
+        model is the endpoint's `load`.
+
+        Raises:
+            ResourceNotFoundError: If the API says the thing does not exist.
+            HTTPError: If the request is answered with any other error.
+        """
+        request_headers = {
+            # "Host": Set by httpx
+            # "User-Agent":  Set by httpx
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
+            # "Accept-Encoding": Set by httpx
+            "Origin": WEB_ORIGIN,
+            "Sec-Fetch-Dest": "empty",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "same-site",
+            # "Connection": Set by httpx
+            "Cookie": self._cookie,
+            "Priority": "u=4",
+            **headers,
+        }
+
         logger.debug("Downloading: %s", log_id)
-        start = time.monotonic()
+        url = f"https://{API_DOMAIN}/{endpoint}"
+        start = monotonic()
         response = self.get_around_client.get(
             url,
             params=params,
-            headers=self._headers(referer),
+            headers=request_headers,
         )
-        if response.is_error:
-            msg = f"Unexpected response status code: {response.status_code}"
-            raise HTTPError(msg)
-        logger.debug("Downloaded %s (%.4f s)", log_id, time.monotonic() - start)
-        parsed: dict[str, Any] = response.json()
-        return parsed
+
+        if response.status_code == HTTPStatus.NOT_FOUND:
+            raise ResourceNotFoundError(response.status_code, response.text)
+        if response.status_code != HTTPStatus.OK:
+            raise HTTPError(response.status_code, response.text)
+
+        logger.debug("Downloaded %s (%.4f s)", log_id, monotonic() - start)
+        sleep(self.sleep_time)
+        return response.text
