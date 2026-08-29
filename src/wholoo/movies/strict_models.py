@@ -1,50 +1,59 @@
 from typing import Self
 from pydantic import ModelWrapValidatorHandler, PrivateAttr, model_validator
+from pydantic import ConfigDict
 from pydantic import AwareDatetime, BaseModel, Field
 from uuid import UUID
 from typing import Any
 
 class Accent(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     hue: int
     classification: str
 
 class DetailVerticalHero(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class VideoHorizontalHero(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class TitleTreatmentHorizontal(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramTile(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramVerticalTile(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class DetailHorizontalHero(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     detail_vertical_hero: DetailVerticalHero = Field(..., alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero = Field(..., alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal = Field(..., alias='title.treatment.horizontal')
@@ -53,10 +62,12 @@ class Artwork(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero = Field(..., alias='detail.horizontal.hero')
 
 class MetricsInfo(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     page_type: str
 
 class Browse(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_type: str
     target_id: UUID
     target_theme: str
@@ -64,45 +75,53 @@ class Browse(BaseModel):
     type: str
 
 class Personalization(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     bowie_context: str
 
 class DetailVerticalHero1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class VideoHorizontalHero1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class TitleTreatmentHorizontal1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramTile1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramVerticalTile1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class DetailHorizontalHero1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     detail_vertical_hero: DetailVerticalHero1 | None = Field(None, alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal1 | None = Field(None, alias='title.treatment.horizontal')
@@ -111,10 +130,12 @@ class Artwork1(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero1 | None = Field(None, alias='detail.horizontal.hero')
 
 class ExternalIdentifier(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     namespace: str
     id: str
 
 class MetricsInfo1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     reco_tags: str | None = None
     external_identifiers: list[ExternalIdentifier] | None = None
@@ -123,9 +144,11 @@ class MetricsInfo1(BaseModel):
     airing_type: str | None = None
 
 class Personalization1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     eab: str
 
 class Browse1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_type: str
     target_id: UUID
     target_theme: str
@@ -135,9 +158,11 @@ class Browse1(BaseModel):
     type: str
 
 class Rating(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     code: str
 
 class Availability(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     start_date: AwareDatetime
     end_date: AwareDatetime
@@ -145,6 +170,7 @@ class Availability(BaseModel):
     is_available: bool
 
 class Rights(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     startover: bool
     recordable: bool
     offline: bool
@@ -152,6 +178,7 @@ class Rights(BaseModel):
     co_viewing: bool
 
 class Bundle(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: int
     eab_id: str
@@ -176,6 +203,7 @@ class Bundle(BaseModel):
     av_features: list[str]
 
 class Item(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: UUID
     href: str
@@ -199,9 +227,11 @@ class Item(BaseModel):
     bundle: Bundle | None = None
 
 class Pagination(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     current_offset: int
 
 class Component(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: str
     href: str
@@ -217,20 +247,24 @@ class Component(BaseModel):
     is_fallback: bool
 
 class VideoHorizontalHero2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     video_horizontal_hero: VideoHorizontalHero2 = Field(..., alias='video.horizontal.hero')
 
 class MetricsInfo2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     metrics_asset_name: str
     airing_type: str
 
 class Bundle1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: int
     eab_id: str
@@ -255,6 +289,7 @@ class Bundle1(BaseModel):
     av_features: list[str]
 
 class Trailer(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: UUID
     href: str
@@ -275,42 +310,49 @@ class Trailer(BaseModel):
     actions: list[None]
 
 class DetailVerticalHero2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class VideoHorizontalHero3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class TitleTreatmentHorizontal2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramTile2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramVerticalTile2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class DetailHorizontalHero2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     detail_vertical_hero: DetailVerticalHero2 = Field(..., alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero3 = Field(..., alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal2 = Field(..., alias='title.treatment.horizontal')
@@ -319,12 +361,14 @@ class Artwork3(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero2 = Field(..., alias='detail.horizontal.hero')
 
 class MetricsInfo3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     metrics_asset_name: str
     airing_type: str
     external_identifiers: list[ExternalIdentifier]
 
 class Bundle2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: int
     eab_id: str
@@ -349,6 +393,7 @@ class Bundle2(BaseModel):
     av_features: list[str]
 
 class Entity(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: UUID
     href: str
@@ -368,62 +413,73 @@ class Entity(BaseModel):
     exclusivity: str
 
 class MetricsInfo4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     reco_tags: str
     selection_tracking_id: UUID
 
 class Focus(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     entity: Entity
     action_text: str
     metrics_info: MetricsInfo4
 
 class VodItems(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: str
     focus: Focus
 
 class UserState(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     is_warm: bool
     is_cold: bool
 
 class DetailVerticalHero3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class VideoHorizontalHero4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class TitleTreatmentHorizontal3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramTile3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class ProgramVerticalTile3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class DetailHorizontalHero3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     detail_vertical_hero: DetailVerticalHero3 = Field(..., alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero4 = Field(..., alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal3 = Field(..., alias='title.treatment.horizontal')
@@ -432,10 +488,12 @@ class Artwork4(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero3 = Field(..., alias='detail.horizontal.hero')
 
 class MetricsInfo5(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     external_identifiers: list[ExternalIdentifier]
 
 class Entity1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: UUID
     href: str
@@ -456,13 +514,16 @@ class Entity1(BaseModel):
     actions: list[None]
 
 class Item1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     display_text: str
 
 class Credit(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     prefix: str
     items: list[Item1]
 
 class Details(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     trailer: Trailer
     vod_items: VodItems
@@ -471,6 +532,7 @@ class Details(BaseModel):
     credits: list[Credit]
 
 class MoviesModel(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: UUID
     href: str

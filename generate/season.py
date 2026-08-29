@@ -6,16 +6,12 @@ from __future__ import annotations
 import logging
 
 from get_around import build_client_automatically
-from good_ass_pydantic_integrator import generate_model
 
 from generate.constants import FILES_PATH, WHOLOO_PATH
-from generate.utils import download_if_missing
+from generate.utils import download_if_missing, load_ids, rebuild_model
 from wholoo import Wholoo
 
-SEASONS = [
-    ("fdeb1018-4472-442f-ba94-fb087cdea069", 2, "bobs-burgers-season-2"),
-    ("77db3944-8426-4259-94c8-be147d3e7594", 3, "smiling-friends-season-3"),
-]
+SEASONS = load_ids("SeasonModel")
 """The series and season each recording is of, and the name it is filed under."""
 
 
@@ -32,7 +28,12 @@ def generate_season(client: Wholoo) -> None:
                 season,
             ),
         )
-    generate_model(FILES_PATH, WHOLOO_PATH, "SeasonModel")
+    rebuild_model(
+        FILES_PATH,
+        WHOLOO_PATH,
+        "SeasonModel",
+        name_of=lambda season: season[2],
+    )
 
 
 if __name__ == "__main__":

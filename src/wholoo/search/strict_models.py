@@ -1,72 +1,87 @@
 from typing import Self
 from pydantic import ModelWrapValidatorHandler, PrivateAttr, model_validator
+from pydantic import ConfigDict
 from uuid import UUID
 from pydantic import AwareDatetime, BaseModel, Field
 from typing import Any
 
 class MetricsInfo(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_id: UUID
     target_type: str
     target_name: str
     selection_tracking_id: UUID
 
 class Personalization(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     bowie_context: str
     eab: str
 
 class Accent(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     hue: int
     classification: str
 
 class Image(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_id: str
 
 class Horizontal(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     artwork_type: str
     image: Image
     text: str
 
 class Artwork(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     horizontal: Horizontal
 
 class Headline(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     text: str
     index: list[list[int]]
 
 class Body(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     text: str
     index: list[list[int]]
 
 class ShortSubtitle(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     text: str
     index: list[None]
 
 class BrandWatermarkBottomRight(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class BrandLogoBottomRight(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     brand_watermark_bottom_right: BrandWatermarkBottomRight = Field(..., alias='brand.watermark.bottom.right')
     brand_logo_bottom_right: BrandLogoBottomRight = Field(..., alias='brand.logo.bottom.right')
 
 class PrimaryBranding(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     id: UUID
     name: str
     artwork: Artwork1
 
 class Visuals(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     artwork: Artwork
     headline: Headline
     body: Body
@@ -75,12 +90,14 @@ class Visuals(BaseModel):
     primary_branding: PrimaryBranding | None = None
 
 class MetricsInfo1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     action_type: str
     target_id: UUID
     target_type: str
     target_display_name: str
 
 class Browse(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_type: str
     target_id: UUID
     target_name: str
@@ -92,6 +109,7 @@ class Browse(BaseModel):
     type: str
 
 class MetricsInfo2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_id: UUID
     target_type: str
     target_display_name: str
@@ -99,6 +117,7 @@ class MetricsInfo2(BaseModel):
     field_type: str = Field(..., alias='_type')
 
 class Action(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     action_type: str
     entity_name: str
     entity_type: str
@@ -106,27 +125,32 @@ class Action(BaseModel):
     eab: str
 
 class Image1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_id: str
 
 class Horizontal1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     artwork_type: str
     image: Image1
     text: str
 
 class Vertical(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     artwork_type: str
     text: str
 
 class Artwork2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     horizontal: Horizontal1
     vertical: Vertical
 
 class Browse1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_type: str
     target_id: UUID
     target_theme: str
@@ -134,6 +158,7 @@ class Browse1(BaseModel):
     type: str
 
 class Action1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     action_type: str
     entity_name: str
     entity_type: str
@@ -143,37 +168,44 @@ class Action1(BaseModel):
     href: str
 
 class BrandWatermarkBottomRight1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class BrandLogoBottomRight1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
 class Artwork3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     brand_watermark_bottom_right: BrandWatermarkBottomRight1 = Field(..., alias='brand.watermark.bottom.right')
     brand_logo_bottom_right: BrandLogoBottomRight1 = Field(..., alias='brand.logo.bottom.right')
 
 class PrimaryBranding1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     id: UUID
     name: str
     artwork: Artwork3
 
 class Header(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     title: str
     artwork: Artwork2
     action: Action1
     primary_branding: PrimaryBranding1 | None = None
 
 class ContextMenu(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     actions: list[Action]
     header: Header
 
 class Availability(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     start_date: AwareDatetime
     end_date: AwareDatetime
@@ -181,6 +213,7 @@ class Availability(BaseModel):
     is_available: bool
 
 class Rights(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     startover: bool
     recordable: bool
     offline: bool
@@ -188,6 +221,7 @@ class Rights(BaseModel):
     co_viewing: bool
 
 class Bundle(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     id: int
     eab_id: str
@@ -212,6 +246,7 @@ class Bundle(BaseModel):
     av_features: list[None]
 
 class MetricsInfo4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     target_id: UUID
     target_type: str
     target_display_name: str
@@ -219,20 +254,24 @@ class MetricsInfo4(BaseModel):
     airing_type: str
 
 class Playback(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     eab: str
     bundle: Bundle
     metrics_info: MetricsInfo4
     type: str
 
 class Actions(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     browse: Browse
     context_menu: ContextMenu
     playback: Playback | None = None
 
 class Rating(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     code: str | None = None
 
 class EntityMetadata(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     genre_names: list[str]
     premiere_date: AwareDatetime
     rating: Rating
@@ -242,6 +281,7 @@ class EntityMetadata(BaseModel):
     availability: Availability | None = None
 
 class Result(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     metrics_info: MetricsInfo
     personalization: Personalization
@@ -252,15 +292,18 @@ class Result(BaseModel):
     entity_metadata: EntityMetadata
 
 class Group(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     category: str
     results: list[Result]
 
 class Metadata(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     search_result_type: str
     explanation: str
     selection_tracking_id: UUID
 
 class SearchModel(BaseModel):
+    model_config = ConfigDict(defer_build=True)
     groups: list[Group]
     metadata: Metadata
     device_context_failure: bool

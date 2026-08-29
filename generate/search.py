@@ -6,20 +6,15 @@ from __future__ import annotations
 import logging
 
 from get_around import build_client_automatically
-from good_ass_pydantic_integrator import generate_model
 
 from generate.constants import FILES_PATH, WHOLOO_PATH
-from generate.utils import download_if_missing
+from generate.utils import download_if_missing, load_ids, rebuild_model
 from wholoo import Wholoo
 
 LIMIT = 1
 """The recordings were made asking for one result."""
 
-QUERIES = [
-    ("The Bear", "the-bear"),
-    ("The Wolf of Wall Street", "the-wolf-of-wall-street"),
-    ("zzqqxxwwvvjjkk", "gibberish"),
-]
+QUERIES = load_ids("SearchModel")
 """Each query and the name its recording is filed under."""
 
 
@@ -33,7 +28,12 @@ def generate_search(client: Wholoo) -> None:
             name,
             lambda query=query: client.search.download(query, limit=LIMIT),
         )
-    generate_model(FILES_PATH, WHOLOO_PATH, "SearchModel")
+    rebuild_model(
+        FILES_PATH,
+        WHOLOO_PATH,
+        "SearchModel",
+        name_of=lambda query: query[1],
+    )
 
 
 if __name__ == "__main__":

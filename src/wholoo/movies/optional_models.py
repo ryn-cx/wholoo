@@ -5,54 +5,54 @@ from uuid import UUID
 from typing import Any
 
 class Accent(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     hue: int | None = None
     classification: str | None = None
 
 class DetailVerticalHero(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class VideoHorizontalHero(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class TitleTreatmentHorizontal(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramTile(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramVerticalTile(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class DetailHorizontalHero(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero | None = Field(None, alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal | None = Field(None, alias='title.treatment.horizontal')
@@ -61,12 +61,12 @@ class Artwork(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero | None = Field(None, alias='detail.horizontal.hero')
 
 class MetricsInfo(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     page_type: str | None = None
 
 class Browse(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
     target_id: UUID | None = None
     target_theme: str | None = None
@@ -74,53 +74,53 @@ class Browse(BaseModel):
     type: str | None = None
 
 class Personalization(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     bowie_context: str | None = None
 
 class DetailVerticalHero1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class VideoHorizontalHero1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class TitleTreatmentHorizontal1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramTile1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramVerticalTile1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class DetailHorizontalHero1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero1 | None = Field(None, alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal1 | None = Field(None, alias='title.treatment.horizontal')
@@ -129,12 +129,12 @@ class Artwork1(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero1 | None = Field(None, alias='detail.horizontal.hero')
 
 class ExternalIdentifier(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     namespace: str | None = None
     id: str | None = None
 
 class MetricsInfo1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     reco_tags: str | None = None
     external_identifiers: list[ExternalIdentifier] | None = None
@@ -143,11 +143,11 @@ class MetricsInfo1(BaseModel):
     airing_type: str | None = None
 
 class Personalization1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     eab: str | None = None
 
 class Browse1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
     target_id: UUID | None = None
     target_theme: str | None = None
@@ -157,11 +157,11 @@ class Browse1(BaseModel):
     type: str | None = None
 
 class Rating(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     code: str | None = None
 
 class Availability(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     start_date: AwareDatetime | None = None
     end_date: AwareDatetime | None = None
@@ -169,7 +169,7 @@ class Availability(BaseModel):
     is_available: bool | None = None
 
 class Rights(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     startover: bool | None = None
     recordable: bool | None = None
     offline: bool | None = None
@@ -177,7 +177,7 @@ class Rights(BaseModel):
     co_viewing: bool | None = None
 
 class Bundle(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: int | None = None
     eab_id: str | None = None
@@ -202,7 +202,7 @@ class Bundle(BaseModel):
     av_features: list[str] | None = None
 
 class Item(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: UUID | None = None
     href: str | None = None
@@ -226,11 +226,11 @@ class Item(BaseModel):
     bundle: Bundle | None = None
 
 class Pagination(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     current_offset: int | None = None
 
 class Component(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: str | None = None
     href: str | None = None
@@ -246,24 +246,24 @@ class Component(BaseModel):
     is_fallback: bool | None = None
 
 class VideoHorizontalHero2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     video_horizontal_hero: VideoHorizontalHero2 | None = Field(None, alias='video.horizontal.hero')
 
 class MetricsInfo2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     metrics_asset_name: str | None = None
     airing_type: str | None = None
 
 class Bundle1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: int | None = None
     eab_id: str | None = None
@@ -288,7 +288,7 @@ class Bundle1(BaseModel):
     av_features: list[str] | None = None
 
 class Trailer(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: UUID | None = None
     href: str | None = None
@@ -309,49 +309,49 @@ class Trailer(BaseModel):
     actions: list[Any] | None = None
 
 class DetailVerticalHero2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class VideoHorizontalHero3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class TitleTreatmentHorizontal2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramTile2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramVerticalTile2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class DetailHorizontalHero2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero2 | None = Field(None, alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero3 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
@@ -360,14 +360,14 @@ class Artwork3(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero2 | None = Field(None, alias='detail.horizontal.hero')
 
 class MetricsInfo3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     metrics_asset_name: str | None = None
     airing_type: str | None = None
     external_identifiers: list[ExternalIdentifier] | None = None
 
 class Bundle2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: int | None = None
     eab_id: str | None = None
@@ -392,7 +392,7 @@ class Bundle2(BaseModel):
     av_features: list[str] | None = None
 
 class Entity(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: UUID | None = None
     href: str | None = None
@@ -412,73 +412,73 @@ class Entity(BaseModel):
     exclusivity: str | None = None
 
 class MetricsInfo4(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     reco_tags: str | None = None
     selection_tracking_id: UUID | None = None
 
 class Focus(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     entity: Entity | None = None
     action_text: str | None = None
     metrics_info: MetricsInfo4 | None = None
 
 class VodItems(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: str | None = None
     focus: Focus | None = None
 
 class UserState(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     is_warm: bool | None = None
     is_cold: bool | None = None
 
 class DetailVerticalHero3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class VideoHorizontalHero4(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class TitleTreatmentHorizontal3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramTile3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class ProgramVerticalTile3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class DetailHorizontalHero3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork4(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero3 | None = Field(None, alias='detail.vertical.hero')
     video_horizontal_hero: VideoHorizontalHero4 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_horizontal: TitleTreatmentHorizontal3 | None = Field(None, alias='title.treatment.horizontal')
@@ -487,12 +487,12 @@ class Artwork4(BaseModel):
     detail_horizontal_hero: DetailHorizontalHero3 | None = Field(None, alias='detail.horizontal.hero')
 
 class MetricsInfo5(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     external_identifiers: list[ExternalIdentifier] | None = None
 
 class Entity1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: UUID | None = None
     href: str | None = None
@@ -513,16 +513,16 @@ class Entity1(BaseModel):
     actions: list[Any] | None = None
 
 class Item1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     display_text: str | None = None
 
 class Credit(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     prefix: str | None = None
     items: list[Item1] | None = None
 
 class Details(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     trailer: Trailer | None = None
     vod_items: VodItems | None = None
@@ -531,7 +531,7 @@ class Details(BaseModel):
     credits: list[Credit] | None = None
 
 class MoviesModel(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: UUID | None = None
     href: str | None = None

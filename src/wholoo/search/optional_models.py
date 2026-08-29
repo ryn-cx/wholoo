@@ -5,82 +5,82 @@ from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 from typing import Any
 
 class MetricsInfo(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_id: UUID | None = None
     target_type: str | None = None
     target_name: str | None = None
     selection_tracking_id: UUID | None = None
 
 class Personalization(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     bowie_context: str | None = None
     eab: str | None = None
 
 class Accent(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     hue: int | None = None
     classification: str | None = None
 
 class Image(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_id: str | None = None
 
 class Horizontal(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     artwork_type: str | None = None
     image: Image | None = None
     text: str | None = None
 
 class Artwork(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     horizontal: Horizontal | None = None
 
 class Headline(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     text: str | None = None
     index: list[list[int]] | None = None
 
 class Body(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     text: str | None = None
     index: list[list[int]] | None = None
 
 class ShortSubtitle(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     text: str | None = None
     index: list[Any] | None = None
 
 class BrandWatermarkBottomRight(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class BrandLogoBottomRight(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     brand_watermark_bottom_right: BrandWatermarkBottomRight | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_bottom_right: BrandLogoBottomRight | None = Field(None, alias='brand.logo.bottom.right')
 
 class PrimaryBranding(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     id: UUID | None = None
     name: str | None = None
     artwork: Artwork1 | None = None
 
 class Visuals(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     artwork: Artwork | None = None
     headline: Headline | None = None
     body: Body | None = None
@@ -89,14 +89,14 @@ class Visuals(BaseModel):
     primary_branding: PrimaryBranding | None = None
 
 class MetricsInfo1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     action_type: str | None = None
     target_id: UUID | None = None
     target_type: str | None = None
     target_display_name: str | None = None
 
 class Browse(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
     target_id: UUID | None = None
     target_name: str | None = None
@@ -108,7 +108,7 @@ class Browse(BaseModel):
     type: str | None = None
 
 class MetricsInfo2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_id: UUID | None = None
     target_type: str | None = None
     target_display_name: str | None = None
@@ -116,7 +116,7 @@ class MetricsInfo2(BaseModel):
     field_type: str | None = Field(None, alias='_type')
 
 class Action(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     action_type: str | None = None
     entity_name: str | None = None
     entity_type: str | None = None
@@ -124,32 +124,32 @@ class Action(BaseModel):
     eab: str | None = None
 
 class Image1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_id: str | None = None
 
 class Horizontal1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     artwork_type: str | None = None
     image: Image1 | None = None
     text: str | None = None
 
 class Vertical(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     artwork_type: str | None = None
     text: str | None = None
 
 class Artwork2(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     horizontal: Horizontal1 | None = None
     vertical: Vertical | None = None
 
 class Browse1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
     target_id: UUID | None = None
     target_theme: str | None = None
@@ -157,7 +157,7 @@ class Browse1(BaseModel):
     type: str | None = None
 
 class Action1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     action_type: str | None = None
     entity_name: str | None = None
     entity_type: str | None = None
@@ -167,44 +167,44 @@ class Action1(BaseModel):
     href: str | None = None
 
 class BrandWatermarkBottomRight1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class BrandLogoBottomRight1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
 class Artwork3(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     brand_watermark_bottom_right: BrandWatermarkBottomRight1 | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_bottom_right: BrandLogoBottomRight1 | None = Field(None, alias='brand.logo.bottom.right')
 
 class PrimaryBranding1(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     id: UUID | None = None
     name: str | None = None
     artwork: Artwork3 | None = None
 
 class Header(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     title: str | None = None
     artwork: Artwork2 | None = None
     action: Action1 | None = None
     primary_branding: PrimaryBranding1 | None = None
 
 class ContextMenu(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     actions: list[Action] | None = None
     header: Header | None = None
 
 class Availability(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     start_date: AwareDatetime | None = None
     end_date: AwareDatetime | None = None
@@ -212,7 +212,7 @@ class Availability(BaseModel):
     is_available: bool | None = None
 
 class Rights(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     startover: bool | None = None
     recordable: bool | None = None
     offline: bool | None = None
@@ -220,7 +220,7 @@ class Rights(BaseModel):
     co_viewing: bool | None = None
 
 class Bundle(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     id: int | None = None
     eab_id: str | None = None
@@ -245,7 +245,7 @@ class Bundle(BaseModel):
     av_features: list[Any] | None = None
 
 class MetricsInfo4(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     target_id: UUID | None = None
     target_type: str | None = None
     target_display_name: str | None = None
@@ -253,24 +253,24 @@ class MetricsInfo4(BaseModel):
     airing_type: str | None = None
 
 class Playback(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     eab: str | None = None
     bundle: Bundle | None = None
     metrics_info: MetricsInfo4 | None = None
     type: str | None = None
 
 class Actions(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     browse: Browse | None = None
     context_menu: ContextMenu | None = None
     playback: Playback | None = None
 
 class Rating(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     code: str | None = None
 
 class EntityMetadata(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     genre_names: list[str] | None = None
     premiere_date: AwareDatetime | None = None
     rating: Rating | None = None
@@ -280,7 +280,7 @@ class EntityMetadata(BaseModel):
     availability: Availability | None = None
 
 class Result(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     metrics_info: MetricsInfo | None = None
     personalization: Personalization | None = None
@@ -291,18 +291,18 @@ class Result(BaseModel):
     entity_metadata: EntityMetadata | None = None
 
 class Group(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     category: str | None = None
     results: list[Result] | None = None
 
 class Metadata(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     search_result_type: str | None = None
     explanation: str | None = None
     selection_tracking_id: UUID | None = None
 
 class SearchModel(BaseModel):
-    model_config = ConfigDict(extra='ignore')
+    model_config = ConfigDict(extra='ignore', defer_build=True)
     groups: list[Group] | None = None
     metadata: Metadata | None = None
     device_context_failure: bool | None = None

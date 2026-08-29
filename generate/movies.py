@@ -6,13 +6,12 @@ from __future__ import annotations
 import logging
 
 from get_around import build_client_automatically
-from good_ass_pydantic_integrator import generate_model
 
 from generate.constants import FILES_PATH, WHOLOO_PATH
-from generate.utils import download_if_missing
+from generate.utils import download_if_missing, load_ids, rebuild_model
 from wholoo import Wholoo
 
-CONTENT_IDS = ["4ee4f57e-19bd-493f-96f9-ad3e753af981"]
+CONTENT_IDS = load_ids("MoviesModel")
 
 
 # TODO: Validate
@@ -25,7 +24,7 @@ def generate_movies(client: Wholoo) -> None:
             content_id,
             lambda content_id=content_id: client.movies.download(content_id),
         )
-    generate_model(FILES_PATH, WHOLOO_PATH, "MoviesModel")
+    rebuild_model(FILES_PATH, WHOLOO_PATH, "MoviesModel")
 
 
 if __name__ == "__main__":
