@@ -10,6 +10,8 @@ from typing import TYPE_CHECKING
 
 from get_around import GetAround
 
+from wholoo.collection import Collection
+from wholoo.episode import Episode
 from wholoo.exceptions import CookieError, HTTPError, ResourceNotFoundError
 from wholoo.genre import Genre
 from wholoo.genres import Genres
@@ -54,6 +56,8 @@ class Wholoo:
         self.movies = Movies(self)
         self.tv = TV(self)
         self.season = Season(self)
+        self.episode = Episode(self)
+        self.collection = Collection(self)
         self.search = Search(self)
         self.genres = Genres(self)
         self.genre = Genre(self)

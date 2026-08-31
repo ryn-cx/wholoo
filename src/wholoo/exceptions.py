@@ -67,6 +67,22 @@ class SeriesNotFoundError(ResourceNotFoundError):
 
 
 # TODO: Validate
+class EpisodeNotFoundError(ResourceNotFoundError):
+    """Raised when the requested episode does not exist."""
+
+    # TODO: Validate
+    def __init__(
+        self,
+        episode_id: str,
+        status_code: int,
+        response: str | dict[str, Any] | None,
+    ) -> None:
+        """Initialize with the episode id and the originating response."""
+        self.episode_id = episode_id
+        super().__init__(status_code, response)
+
+
+# TODO: Validate
 class SeasonNotFoundError(ResourceNotFoundError):
     """Raised when the requested season of a series does not exist."""
 
@@ -81,6 +97,24 @@ class SeasonNotFoundError(ResourceNotFoundError):
         """Initialize with the series id, season number and originating response."""
         self.series_id = series_id
         self.season = season
+        super().__init__(status_code, response)
+
+
+# TODO: Validate
+class CollectionNotFoundError(ResourceNotFoundError):
+    """Raised when the requested collection of a hub does not exist."""
+
+    # TODO: Validate
+    def __init__(
+        self,
+        hub: str,
+        collection_id: str,
+        status_code: int,
+        response: str | dict[str, Any] | None,
+    ) -> None:
+        """Initialize with the hub, the collection id and the originating response."""
+        self.hub = hub
+        self.collection_id = collection_id
         super().__init__(status_code, response)
 
 
