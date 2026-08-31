@@ -11,6 +11,8 @@ from typing import TYPE_CHECKING
 from get_around import GetAround
 
 from wholoo.exceptions import CookieError, HTTPError, ResourceNotFoundError
+from wholoo.genre import Genre
+from wholoo.genres import Genres
 from wholoo.movies import Movies
 from wholoo.search import Search
 from wholoo.season import Season
@@ -53,6 +55,8 @@ class Wholoo:
         self.tv = TV(self)
         self.season = Season(self)
         self.search = Search(self)
+        self.genres = Genres(self)
+        self.genre = Genre(self)
 
     # TODO: Validate
     @property
@@ -125,6 +129,50 @@ class Wholoo:
         response = self.get_around_client.get(
             url,
             params=params,
+            headers=request_headers,
+        )
+
+        if response.status_code == HTTPStatus.NOT_FOUND:
+            raise ResourceNotFoundError(response.status_code, response.text)
+        if response.status_code != HTTPStatus.OK:
+            raise HTTPError(response.status_code, response.text)
+
+        logger.debug("Downloaded %s (%.4f s)", log_id, monotonic() - start)
+        sleep(self.sleep_time)
+        return response.text
+
+    # TODO: Validate
+    def download_page(self, path: str, log_id: str) -> str:
+        """Downloads one page of the website.
+
+        What comes back is the HTML as it was served, and picking the data
+        out of it is the endpoint's own.
+
+        Raises:
+            ResourceNotFoundError: If the site says the page does not exist.
+            HTTPError: If the request is answered with any other error.
+        """
+        request_headers = {
+            # "Host": Set by httpx
+            # "User-Agent":  Set by httpx
+            "Accept": (
+                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            ),
+            "Accept-Language": "en-US,en;q=0.9",
+            # "Accept-Encoding": Set by httpx
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1",
+            # "Connection": Set by httpx
+            "Priority": "u=0, i",
+        }
+
+        logger.debug("Downloading: %s", log_id)
+        start = monotonic()
+        response = self.get_around_client.get(
+            f"{WEB_ORIGIN}/{path}",
             headers=request_headers,
         )
 

@@ -87,3 +87,24 @@ class SeasonNotFoundError(ResourceNotFoundError):
 # TODO: Validate
 class CookieError(WholooError):
     """Raised when hulu.com answers without setting a session cookie."""
+
+
+# TODO: Validate
+class GenreNotFoundError(ResourceNotFoundError):
+    """Raised when the requested genre does not exist."""
+
+    # TODO: Validate
+    def __init__(
+        self,
+        genre_id: str,
+        status_code: int,
+        response: str | dict[str, Any] | None,
+    ) -> None:
+        """Initialize with the genre id and the originating response."""
+        self.genre_id = genre_id
+        super().__init__(status_code, response)
+
+
+# TODO: Validate
+class PageDataError(WholooError):
+    """Raised when a downloaded page carries no page data."""
