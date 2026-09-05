@@ -78,13 +78,14 @@ class Wholoo:
         """
         logger.debug("Downloading cookie:")
         start = monotonic()
-        response = self.get_around_client.get(f"{WEB_ORIGIN}/")
+        response = self.get_around_client.get(f"{WEB_ORIGIN}/", follow_redirects=True)
 
         cookies: dict[str, str] = {}
-        for set_cookie in response.headers.get_list("set-cookie"):
-            name, separator, remainder = set_cookie.partition("=")
-            if separator:
-                cookies[name.strip()] = remainder.split(";", 1)[0].strip()
+        for redirect_or_response in [*response.history, response]:
+            for set_cookie in redirect_or_response.headers.get_list("set-cookie"):
+                name, separator, remainder = set_cookie.partition("=")
+                if separator:
+                    cookies[name.strip()] = remainder.split(";", 1)[0].strip()
         if not cookies:
             msg = f"No session cookie returned by {WEB_ORIGIN}/"
             raise CookieError(msg)
@@ -178,6 +179,7 @@ class Wholoo:
         response = self.get_around_client.get(
             f"{WEB_ORIGIN}/{path}",
             headers=request_headers,
+            follow_redirects=True,
         )
 
         if response.status_code == HTTPStatus.NOT_FOUND:
