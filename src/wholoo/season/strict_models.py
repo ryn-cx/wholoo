@@ -195,7 +195,7 @@ class DetailHorizontalHero(BaseModel):
 class SeriesArtwork(BaseModel):
     model_config = ConfigDict(defer_build=True)
     detail_vertical_hero: DetailVerticalHero = Field(..., alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal = Field(..., alias='title.treatment.horizontal')
+    title_treatment_horizontal: TitleTreatmentHorizontal | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile = Field(..., alias='program.tile')
     program_vertical_tile: ProgramVerticalTile = Field(..., alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero = Field(..., alias='detail.horizontal.hero')
