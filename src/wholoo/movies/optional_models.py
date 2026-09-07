@@ -225,14 +225,14 @@ class BrandLogoBottomRight(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class BrandWatermarkDark(BaseModel):
+class BrandHubBackground(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
-class BrandHubBackground(BaseModel):
+class BrandWatermarkDark(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -262,8 +262,8 @@ class Artwork2(BaseModel):
     brand_watermark_bottom_right: BrandWatermarkBottomRight | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight | None = Field(None, alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight | None = Field(None, alias='brand.logo.bottom.right')
-    brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
     brand_hub_background: BrandHubBackground | None = Field(None, alias='brand.hub.background')
+    brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
     program_tile: ProgramTile2 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile2 | None = Field(None, alias='program.vertical.tile')
 
@@ -428,17 +428,12 @@ class Artwork3(BaseModel):
     video_horizontal_hero: VideoHorizontalHero2 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_stacked: TitleTreatmentStacked2 | None = Field(None, alias='title.treatment.stacked')
 
-class ExternalIdentifier1(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    namespace: str | None = None
-    id: str | None = None
-
 class MetricsInfo2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     metrics_asset_name: str | None = None
     airing_type: str | None = None
-    external_identifiers: list[ExternalIdentifier1] | None = None
+    external_identifiers: list[ExternalIdentifier] | None = None
 
 class Bundle1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -661,7 +656,7 @@ class Artwork5(BaseModel):
 class MetricsInfo4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
-    external_identifiers: list[ExternalIdentifier1] | None = None
+    external_identifiers: list[ExternalIdentifier] | None = None
 
 class Entity1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -720,7 +715,6 @@ class Bundle2(BaseModel):
     duration: int | None = None
     availability: Availability | None = None
     bundle_type: str | None = None
-    rating: str | None = None
     open_credit_end_pos: int | None = None
     close_credit_start_pos: int | None = None
     rights: Rights | None = None
@@ -734,6 +728,7 @@ class Bundle2(BaseModel):
     stream_ttl: int | None = None
     package_id: int | None = None
     av_features: list[str] | None = None
+    rating: str | None = None
 
 class BrandWatermark2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)

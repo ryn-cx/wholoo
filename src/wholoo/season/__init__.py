@@ -105,8 +105,8 @@ class Season(BaseEndpoint):
         A season a real series does not have is answered with an empty
         collection rather than with an error.
         """
-        if not json.loads(response)["pagination"]["total_count"]:
-            raise SeasonNotFoundError(series_id, season, HTTPStatus.OK, response)
+        # TODO: There is no way to tell the difference between a season that used to
+        # exist and was deleted and a season that is invalid.
         return response
 
     # TODO: Validate
