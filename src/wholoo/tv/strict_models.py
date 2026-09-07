@@ -52,14 +52,22 @@ class TitleTreatmentStacked(BaseModel):
     image_type: str
     image_id: str
 
+class VideoHorizontalHero(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
 class Artwork(BaseModel):
     model_config = ConfigDict(defer_build=True)
     title_treatment_horizontal: TitleTreatmentHorizontal | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile = Field(..., alias='program.tile')
-    detail_vertical_hero: DetailVerticalHero = Field(..., alias='detail.vertical.hero')
-    program_vertical_tile: ProgramVerticalTile = Field(..., alias='program.vertical.tile')
+    detail_vertical_hero: DetailVerticalHero | None = Field(None, alias='detail.vertical.hero')
+    program_vertical_tile: ProgramVerticalTile | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero = Field(..., alias='detail.horizontal.hero')
     title_treatment_stacked: TitleTreatmentStacked | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
 
 class MetricsInfo(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -109,7 +117,7 @@ class DetailHorizontalHero1(BaseModel):
     image_type: str
     image_id: str
 
-class VideoHorizontalHero(BaseModel):
+class VideoHorizontalHero1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -137,18 +145,11 @@ class Artwork1(BaseModel):
     program_tile: ProgramTile1 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile1 | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero1 | None = Field(None, alias='detail.horizontal.hero')
-    video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
+    video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
     title_treatment_stacked: TitleTreatmentStacked1 | None = Field(None, alias='title.treatment.stacked')
     detail_horizontal_wide: DetailHorizontalWide | None = Field(None, alias='detail.horizontal.wide')
 
-class VideoHorizontalHero1(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
-class TitleTreatmentHorizontal2(BaseModel):
+class VideoHorizontalHero2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -162,16 +163,31 @@ class ProgramTile2(BaseModel):
     image_type: str
     image_id: str
 
+class VideoVerticalHero(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class TitleTreatmentHorizontal2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
 class Artwork2(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero1 = Field(..., alias='video.horizontal.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
+    video_horizontal_hero: VideoHorizontalHero2 = Field(..., alias='video.horizontal.hero')
     program_tile: ProgramTile2 | None = Field(None, alias='program.tile')
+    video_vertical_hero: VideoVerticalHero | None = Field(None, alias='video.vertical.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
 
 class ExternalIdentifier(BaseModel):
     model_config = ConfigDict(defer_build=True)
     namespace: str
-    id: str
+    id: UUID | str = Field(union_mode='left_to_right')
 
 class MetricsInfo1(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -198,7 +214,7 @@ class Availability(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     start_date: AwareDatetime
-    end_date: AwareDatetime
+    end_date: AwareDatetime | None = None
     location_requirement: str
     is_available: bool
 
@@ -281,23 +297,24 @@ class TitleTreatmentStacked2(BaseModel):
     image_type: str
     image_id: str
 
-class SeriesArtwork(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    detail_vertical_hero: DetailVerticalHero2 = Field(..., alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal3 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile3 = Field(..., alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile2 = Field(..., alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero2 = Field(..., alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked2 | None = Field(None, alias='title.treatment.stacked')
-
-class BrandWatermark(BaseModel):
+class VideoHorizontalHero3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
-class BrandWatermarkDark(BaseModel):
+class SeriesArtwork(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    detail_vertical_hero: DetailVerticalHero2 | None = Field(None, alias='detail.vertical.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal3 | None = Field(None, alias='title.treatment.horizontal')
+    program_tile: ProgramTile3 = Field(..., alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile2 | None = Field(None, alias='program.vertical.tile')
+    detail_horizontal_hero: DetailHorizontalHero2 | None = Field(None, alias='detail.horizontal.hero')
+    title_treatment_stacked: TitleTreatmentStacked2 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero3 | None = Field(None, alias='video.horizontal.hero')
+
+class BrandWatermark(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -318,21 +335,7 @@ class BrandLogo(BaseModel):
     image_type: str
     image_id: str
 
-class ProgramTile4(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
 class NetworkTile(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
-class ProgramVerticalTile3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -360,6 +363,27 @@ class BrandLogoBottomRight(BaseModel):
     image_type: str
     image_id: str
 
+class BrandWatermarkDark(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramTile4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramVerticalTile3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
 class BrandHubBackground(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
@@ -370,15 +394,15 @@ class BrandHubBackground(BaseModel):
 class Artwork3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     brand_watermark: BrandWatermark = Field(..., alias='brand.watermark')
-    brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
     brand_watermark_top_right: BrandWatermarkTopRight = Field(..., alias='brand.watermark.top.right')
     brand_logo: BrandLogo = Field(..., alias='brand.logo')
-    program_tile: ProgramTile4 | None = Field(None, alias='program.tile')
     network_tile: NetworkTile = Field(..., alias='network.tile')
-    program_vertical_tile: ProgramVerticalTile3 | None = Field(None, alias='program.vertical.tile')
     brand_watermark_bottom_right: BrandWatermarkBottomRight = Field(..., alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight = Field(..., alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight = Field(..., alias='brand.logo.bottom.right')
+    brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
+    program_tile: ProgramTile4 | None = Field(None, alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile3 | None = Field(None, alias='program.vertical.tile')
     brand_hub_background: BrandHubBackground | None = Field(None, alias='brand.hub.background')
 
 class PrimaryBranding(BaseModel):
@@ -402,12 +426,12 @@ class Item1(BaseModel):
     series_id: UUID
     series_name: str
     season: str
-    season_short_display_name: str
+    season_short_display_name: str | None = None
     bundle: Bundle
     number: str
     rating: Rating
     genre_names: list[str]
-    premiere_date: AwareDatetime
+    premiere_date: AwareDatetime | None = None
     duration: int | None = None
     is_first_run: bool
     series_artwork: SeriesArtwork
@@ -429,16 +453,11 @@ class SeriesGroupingMetadata(BaseModel):
     grouping_name: str = Field(..., alias='groupingName')
     unknown: bool
 
-class ExternalIdentifier1(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    namespace: str
-    id: UUID | str = Field(union_mode='left_to_right')
-
 class MetricsInfo2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     reco_tags: str | None = None
-    external_identifiers: list[ExternalIdentifier1] | None = None
+    external_identifiers: list[ExternalIdentifier] | None = None
     selection_tracking_id: UUID | None = None
     metrics_asset_name: str | None = None
     airing_type: str | None = None
@@ -525,7 +544,7 @@ class Artwork4(BaseModel):
     brand_watermark: BrandWatermark1 | None = Field(None, alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight1 | None = Field(None, alias='brand.watermark.top.right')
     brand_logo: BrandLogo1 | None = Field(None, alias='brand.logo')
-    network_tile: NetworkTile1 = Field(..., alias='network.tile')
+    network_tile: NetworkTile1 | None = Field(None, alias='network.tile')
     brand_watermark_bottom_right: BrandWatermarkBottomRight1 | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight1 | None = Field(None, alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight1 | None = Field(None, alias='brand.logo.bottom.right')
@@ -540,14 +559,6 @@ class PrimaryBranding1(BaseModel):
     name: str
     artwork: Artwork4
 
-class Availability1(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    field_type: str = Field(..., alias='_type')
-    start_date: AwareDatetime
-    end_date: AwareDatetime | None = None
-    location_requirement: str
-    is_available: bool
-
 class Bundle1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
@@ -556,7 +567,7 @@ class Bundle1(BaseModel):
     network_id: UUID
     network_name: str
     duration: int
-    availability: Availability1
+    availability: Availability
     bundle_type: str
     open_credit_end_pos: int
     close_credit_start_pos: int
@@ -645,8 +656,8 @@ class Item(BaseModel):
     duration: int | None = None
     original_id: UUID | None = None
     original_type: str | None = None
-    bundle: Bundle1 | None = None
     relationship: str | None = None
+    bundle: Bundle1 | None = None
     series_id: UUID | None = None
     series_name: str | None = None
     season: str | None = None
@@ -686,7 +697,21 @@ class Component(BaseModel):
     is_fallback: bool | None = None
     description: str | None = None
 
-class VideoHorizontalHero2(BaseModel):
+class VideoHorizontalHero4(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramTile7(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class VideoVerticalHero1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -695,31 +720,20 @@ class VideoHorizontalHero2(BaseModel):
 
 class Artwork5(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero2 = Field(..., alias='video.horizontal.hero')
-
-class ExternalIdentifier2(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    namespace: str
-    id: str
+    video_horizontal_hero: VideoHorizontalHero4 = Field(..., alias='video.horizontal.hero')
+    program_tile: ProgramTile7 | None = Field(None, alias='program.tile')
+    video_vertical_hero: VideoVerticalHero1 | None = Field(None, alias='video.vertical.hero')
 
 class MetricsInfo3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     metrics_asset_name: str
     airing_type: str
-    external_identifiers: list[ExternalIdentifier2] | None = None
+    external_identifiers: list[ExternalIdentifier] | None = None
 
 class Personalization3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     eab: str
-
-class Availability2(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    field_type: str = Field(..., alias='_type')
-    start_date: AwareDatetime
-    end_date: AwareDatetime
-    location_requirement: str
-    is_available: bool
 
 class Bundle2(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -729,7 +743,7 @@ class Bundle2(BaseModel):
     network_id: UUID
     network_name: str
     duration: int
-    availability: Availability2
+    availability: Availability
     bundle_type: str
     rating: str | None = None
     open_credit_end_pos: int
@@ -760,7 +774,7 @@ class TitleTreatmentHorizontal5(BaseModel):
     image_type: str
     image_id: str
 
-class ProgramTile7(BaseModel):
+class ProgramTile8(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -788,23 +802,24 @@ class TitleTreatmentStacked3(BaseModel):
     image_type: str
     image_id: str
 
-class SeriesArtwork2(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    detail_vertical_hero: DetailVerticalHero4 = Field(..., alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal5 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile7 = Field(..., alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile6 = Field(..., alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero4 = Field(..., alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked3 | None = Field(None, alias='title.treatment.stacked')
-
-class BrandWatermark2(BaseModel):
+class VideoHorizontalHero5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
-class BrandWatermarkDark2(BaseModel):
+class SeriesArtwork2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    detail_vertical_hero: DetailVerticalHero4 | None = Field(None, alias='detail.vertical.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal5 | None = Field(None, alias='title.treatment.horizontal')
+    program_tile: ProgramTile8 = Field(..., alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile6 | None = Field(None, alias='program.vertical.tile')
+    detail_horizontal_hero: DetailHorizontalHero4 | None = Field(None, alias='detail.horizontal.hero')
+    title_treatment_stacked: TitleTreatmentStacked3 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero5 | None = Field(None, alias='video.horizontal.hero')
+
+class BrandWatermark2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -825,21 +840,7 @@ class BrandLogo2(BaseModel):
     image_type: str
     image_id: str
 
-class ProgramTile8(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
 class NetworkTile2(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
-class ProgramVerticalTile7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -867,6 +868,27 @@ class BrandLogoBottomRight2(BaseModel):
     image_type: str
     image_id: str
 
+class BrandWatermarkDark2(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramTile9(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramVerticalTile7(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
 class BrandHubBackground2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
@@ -877,15 +899,15 @@ class BrandHubBackground2(BaseModel):
 class Artwork6(BaseModel):
     model_config = ConfigDict(defer_build=True)
     brand_watermark: BrandWatermark2 = Field(..., alias='brand.watermark')
-    brand_watermark_dark: BrandWatermarkDark2 | None = Field(None, alias='brand.watermark.dark')
     brand_watermark_top_right: BrandWatermarkTopRight2 = Field(..., alias='brand.watermark.top.right')
     brand_logo: BrandLogo2 = Field(..., alias='brand.logo')
-    program_tile: ProgramTile8 | None = Field(None, alias='program.tile')
     network_tile: NetworkTile2 = Field(..., alias='network.tile')
-    program_vertical_tile: ProgramVerticalTile7 | None = Field(None, alias='program.vertical.tile')
     brand_watermark_bottom_right: BrandWatermarkBottomRight2 = Field(..., alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight2 = Field(..., alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight2 = Field(..., alias='brand.logo.bottom.right')
+    brand_watermark_dark: BrandWatermarkDark2 | None = Field(None, alias='brand.watermark.dark')
+    program_tile: ProgramTile9 | None = Field(None, alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile7 | None = Field(None, alias='program.vertical.tile')
     brand_hub_background: BrandHubBackground2 | None = Field(None, alias='brand.hub.background')
 
 class PrimaryBranding2(BaseModel):
@@ -909,12 +931,12 @@ class Entity(BaseModel):
     series_id: UUID
     series_name: str
     season: str
-    season_short_display_name: str
+    season_short_display_name: str | None = None
     bundle: Bundle2
     number: str
     rating: Rating
     genre_names: list[str]
-    premiere_date: AwareDatetime
+    premiere_date: AwareDatetime | None = None
     duration: int | None = None
     is_first_run: bool
     series_artwork: SeriesArtwork2
@@ -954,7 +976,7 @@ class TitleTreatmentHorizontal6(BaseModel):
     image_type: str
     image_id: str
 
-class ProgramTile9(BaseModel):
+class ProgramTile10(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -989,19 +1011,32 @@ class TitleTreatmentStacked4(BaseModel):
     image_type: str
     image_id: str
 
+class VideoHorizontalHero6(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
 class Artwork7(BaseModel):
     model_config = ConfigDict(defer_build=True)
     title_treatment_horizontal: TitleTreatmentHorizontal6 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile9 = Field(..., alias='program.tile')
-    detail_vertical_hero: DetailVerticalHero5 = Field(..., alias='detail.vertical.hero')
-    program_vertical_tile: ProgramVerticalTile8 = Field(..., alias='program.vertical.tile')
+    program_tile: ProgramTile10 = Field(..., alias='program.tile')
+    detail_vertical_hero: DetailVerticalHero5 | None = Field(None, alias='detail.vertical.hero')
+    program_vertical_tile: ProgramVerticalTile8 | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero5 = Field(..., alias='detail.horizontal.hero')
     title_treatment_stacked: TitleTreatmentStacked4 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero6 | None = Field(None, alias='video.horizontal.hero')
+
+class ExternalIdentifier3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    namespace: str
+    id: str
 
 class MetricsInfo5(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
-    external_identifiers: list[ExternalIdentifier2]
+    external_identifiers: list[ExternalIdentifier3]
 
 class BrandWatermark3(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -1018,6 +1053,20 @@ class BrandWatermarkTopRight3(BaseModel):
     image_id: str
 
 class BrandLogo3(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramTile11(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    path: str
+    accent: Accent
+    image_type: str
+    image_id: str
+
+class ProgramVerticalTile9(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -1052,14 +1101,14 @@ class BrandLogoBottomRight3(BaseModel):
     image_type: str
     image_id: str
 
-class ProgramTile10(BaseModel):
+class BrandWatermarkDark3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
-class ProgramVerticalTile9(BaseModel):
+class BrandHubBackground3(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
@@ -1071,12 +1120,14 @@ class Artwork8(BaseModel):
     brand_watermark: BrandWatermark3 | None = Field(None, alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight3 | None = Field(None, alias='brand.watermark.top.right')
     brand_logo: BrandLogo3 | None = Field(None, alias='brand.logo')
+    program_tile: ProgramTile11 | None = Field(None, alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile9 | None = Field(None, alias='program.vertical.tile')
     network_tile: NetworkTile3 = Field(..., alias='network.tile')
     brand_watermark_bottom_right: BrandWatermarkBottomRight3 = Field(..., alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight3 | None = Field(None, alias='brand.logo.top.right')
-    brand_logo_bottom_right: BrandLogoBottomRight3 = Field(..., alias='brand.logo.bottom.right')
-    program_tile: ProgramTile10 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile9 | None = Field(None, alias='program.vertical.tile')
+    brand_logo_bottom_right: BrandLogoBottomRight3 | None = Field(None, alias='brand.logo.bottom.right')
+    brand_watermark_dark: BrandWatermarkDark3 | None = Field(None, alias='brand.watermark.dark')
+    brand_hub_background: BrandHubBackground3 | None = Field(None, alias='brand.hub.background')
 
 class PrimaryBranding3(BaseModel):
     model_config = ConfigDict(defer_build=True)

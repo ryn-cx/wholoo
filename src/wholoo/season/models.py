@@ -19,6 +19,7 @@ if TYPE_CHECKING:
         Artwork,
         Artwork1,
         Availability,
+        BrandHubBackground,
         BrandLogo,
         BrandLogoBottomRight,
         BrandLogoTopRight,
@@ -37,6 +38,7 @@ if TYPE_CHECKING:
         Personalization,
         PrimaryBranding,
         ProgramTile,
+        ProgramTile1,
         ProgramVerticalTile,
         Rating,
         Rights,
@@ -44,7 +46,10 @@ if TYPE_CHECKING:
         SeriesArtwork,
         SeriesGroupingMetadata,
         TitleTreatmentHorizontal,
+        TitleTreatmentStacked,
         VideoHorizontalHero,
+        VideoHorizontalHero1,
+        VideoVerticalHero,
     )
 else:
     from .optional_models import (
@@ -52,6 +57,7 @@ else:
         Artwork,
         Artwork1,
         Availability,
+        BrandHubBackground,
         BrandLogo,
         BrandLogoBottomRight,
         BrandLogoTopRight,
@@ -70,6 +76,7 @@ else:
         Personalization,
         PrimaryBranding,
         ProgramTile,
+        ProgramTile1,
         ProgramVerticalTile,
         Rating,
         Rights,
@@ -77,7 +84,10 @@ else:
         SeriesArtwork,
         SeriesGroupingMetadata,
         TitleTreatmentHorizontal,
+        TitleTreatmentStacked,
         VideoHorizontalHero,
+        VideoHorizontalHero1,
+        VideoVerticalHero,
     )
 
 __all__ = [
@@ -85,6 +95,7 @@ __all__ = [
     "Artwork",
     "Artwork1",
     "Availability",
+    "BrandHubBackground",
     "BrandLogo",
     "BrandLogoBottomRight",
     "BrandLogoTopRight",
@@ -103,6 +114,7 @@ __all__ = [
     "Personalization",
     "PrimaryBranding",
     "ProgramTile",
+    "ProgramTile1",
     "ProgramVerticalTile",
     "Rating",
     "Rights",
@@ -110,7 +122,10 @@ __all__ = [
     "SeriesArtwork",
     "SeriesGroupingMetadata",
     "TitleTreatmentHorizontal",
+    "TitleTreatmentStacked",
     "VideoHorizontalHero",
+    "VideoHorizontalHero1",
+    "VideoVerticalHero",
     "model_validate_json",
 ]
 
