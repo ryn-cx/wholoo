@@ -155,6 +155,13 @@ class VideoHorizontalHero2(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
+class TitleTreatmentHorizontal2(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
 class ProgramTile2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
@@ -169,19 +176,12 @@ class VideoVerticalHero(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class TitleTreatmentHorizontal2(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
-
 class Artwork2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     video_horizontal_hero: VideoHorizontalHero2 | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile2 | None = Field(None, alias='program.tile')
     video_vertical_hero: VideoVerticalHero | None = Field(None, alias='video.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
 
 class ExternalIdentifier(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -510,6 +510,13 @@ class BrandLogoBottomRight1(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
+class BrandWatermarkDark1(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
 class ProgramTile5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
@@ -518,13 +525,6 @@ class ProgramTile5(BaseModel):
     image_id: str | None = None
 
 class ProgramVerticalTile4(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
-
-class BrandWatermarkDark1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -547,9 +547,9 @@ class Artwork4(BaseModel):
     brand_watermark_bottom_right: BrandWatermarkBottomRight1 | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight1 | None = Field(None, alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight1 | None = Field(None, alias='brand.logo.bottom.right')
+    brand_watermark_dark: BrandWatermarkDark1 | None = Field(None, alias='brand.watermark.dark')
     program_tile: ProgramTile5 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile4 | None = Field(None, alias='program.vertical.tile')
-    brand_watermark_dark: BrandWatermarkDark1 | None = Field(None, alias='brand.watermark.dark')
     brand_hub_background: BrandHubBackground1 | None = Field(None, alias='brand.hub.background')
 
 class PrimaryBranding1(BaseModel):
@@ -568,6 +568,7 @@ class Bundle1(BaseModel):
     duration: int | None = None
     availability: Availability | None = None
     bundle_type: str | None = None
+    rating: str | None = None
     open_credit_end_pos: int | None = None
     close_credit_start_pos: int | None = None
     rights: Rights | None = None
@@ -581,7 +582,6 @@ class Bundle1(BaseModel):
     stream_ttl: int | None = None
     package_id: int | None = None
     av_features: list[str] | None = None
-    rating: str | None = None
 
 class DetailVerticalHero3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -618,6 +618,20 @@ class DetailHorizontalHero3(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
+class TitleTreatmentStacked3(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
+class VideoHorizontalHero4(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
 class SeriesArtwork1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero3 | None = Field(None, alias='detail.vertical.hero')
@@ -625,6 +639,8 @@ class SeriesArtwork1(BaseModel):
     program_tile: ProgramTile6 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile5 | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero3 | None = Field(None, alias='detail.horizontal.hero')
+    title_treatment_stacked: TitleTreatmentStacked3 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero4 | None = Field(None, alias='video.horizontal.hero')
 
 class Item(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -653,17 +669,66 @@ class Item(BaseModel):
     actions: list[Any] | None = None
     primary_branding: PrimaryBranding1 | None = None
     duration: int | None = None
-    original_id: UUID | None = None
-    original_type: str | None = None
-    relationship: str | None = None
-    bundle: Bundle1 | None = None
     series_id: UUID | None = None
     series_name: str | None = None
     season: str | None = None
-    season_short_display_name: str | None = None
+    bundle: Bundle1 | None = None
     number: str | None = None
     is_first_run: bool | None = None
     series_artwork: SeriesArtwork1 | None = None
+    season_short_display_name: str | None = None
+    original_id: UUID | None = None
+    original_type: str | None = None
+    relationship: str | None = None
+
+class Image(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+
+class Horizontal(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    artwork_type: str | None = None
+    image: Image | None = None
+    text: str | None = None
+
+class Image1(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+
+class Vertical(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    artwork_type: str | None = None
+    image: Image1 | None = None
+    text: str | None = None
+
+class Artwork5(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    horizontal: Horizontal | None = None
+    vertical: Vertical | None = None
+
+class Browse3(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    target_type: str | None = None
+    target_id: UUID | None = None
+    target_theme: str | None = None
+    params: dict[str, Any] | None = None
+    type: str | None = None
+
+class Action(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    id: UUID | str | None = Field(default=None, union_mode='left_to_right')
+    name: str | None = None
+    position: int | None = None
+    href: str | None = None
+    theme: str | None = None
+    artwork: Artwork5 | None = None
+    browse: Browse3 | None = None
 
 class Pagination1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -678,6 +743,46 @@ class Personalization2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     bowie_context: str | None = None
 
+class Image2(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+
+class Horizontal1(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    artwork_type: str | None = None
+    image: Image2 | None = None
+    text: str | None = None
+
+class Image3(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+
+class Vertical1(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    artwork_type: str | None = None
+    image: Image3 | None = None
+    text: str | None = None
+
+class Artwork6(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    horizontal: Horizontal1 | None = None
+    vertical: Vertical1 | None = None
+
+class HubLink(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    id: UUID | None = None
+    href: str | None = None
+    name: str | None = None
+    theme: str | None = None
+    artwork: Artwork6 | None = None
+    browse: Browse3 | None = None
+
 class Component(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
@@ -688,15 +793,23 @@ class Component(BaseModel):
     artwork: dict[str, Any] | None = None
     device_context_failure: bool | None = None
     items: list[Item] | None = None
-    actions: list[Any] | None = None
+    actions: list[Action] | None = None
     pagination: Pagination1 | None = None
     focus_navigation: FocusNavigation | None = None
     p13n_href: str | None = None
     personalization: Personalization2 | None = None
     is_fallback: bool | None = None
+    hub_link: HubLink | None = None
     description: str | None = None
 
-class VideoHorizontalHero4(BaseModel):
+class VideoHorizontalHero5(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
+class TitleTreatmentHorizontal5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -717,9 +830,10 @@ class VideoVerticalHero1(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork5(BaseModel):
+class Artwork7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero4 | None = Field(None, alias='video.horizontal.hero')
+    video_horizontal_hero: VideoHorizontalHero5 | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal5 | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile7 | None = Field(None, alias='program.tile')
     video_vertical_hero: VideoVerticalHero1 | None = Field(None, alias='video.vertical.hero')
 
@@ -733,6 +847,16 @@ class MetricsInfo3(BaseModel):
 class Personalization3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     eab: str | None = None
+
+class Browse5(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    target_type: str | None = None
+    target_id: UUID | None = None
+    target_theme: str | None = None
+    params: dict[str, Any] | None = None
+    href: str | None = None
+    browse_theme: str | None = None
+    type: str | None = None
 
 class Bundle2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -766,7 +890,7 @@ class DetailVerticalHero4(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class TitleTreatmentHorizontal5(BaseModel):
+class TitleTreatmentHorizontal6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -794,14 +918,14 @@ class DetailHorizontalHero4(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class TitleTreatmentStacked3(BaseModel):
+class TitleTreatmentStacked4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
-class VideoHorizontalHero5(BaseModel):
+class VideoHorizontalHero6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -811,12 +935,12 @@ class VideoHorizontalHero5(BaseModel):
 class SeriesArtwork2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     detail_vertical_hero: DetailVerticalHero4 | None = Field(None, alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal5 | None = Field(None, alias='title.treatment.horizontal')
+    title_treatment_horizontal: TitleTreatmentHorizontal6 | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile8 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile6 | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero4 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked3 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero5 | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_stacked: TitleTreatmentStacked4 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero6 | None = Field(None, alias='video.horizontal.hero')
 
 class BrandWatermark2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -895,7 +1019,7 @@ class BrandHubBackground2(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork6(BaseModel):
+class Artwork8(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     brand_watermark: BrandWatermark2 | None = Field(None, alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight2 | None = Field(None, alias='brand.watermark.top.right')
@@ -913,7 +1037,7 @@ class PrimaryBranding2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     id: UUID | None = None
     name: str | None = None
-    artwork: Artwork6 | None = None
+    artwork: Artwork8 | None = None
 
 class Entity(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -922,11 +1046,11 @@ class Entity(BaseModel):
     href: str | None = None
     name: str | None = None
     description: str | None = None
-    artwork: Artwork5 | None = None
+    artwork: Artwork7 | None = None
     metrics_info: MetricsInfo3 | None = None
     personalization: Personalization3 | None = None
     device_context_failure: bool | None = None
-    browse: Browse1 | None = None
+    browse: Browse5 | None = None
     series_id: UUID | None = None
     series_name: str | None = None
     season: str | None = None
@@ -968,7 +1092,7 @@ class UserState(BaseModel):
     is_warm: bool | None = None
     is_cold: bool | None = None
 
-class TitleTreatmentHorizontal6(BaseModel):
+class TitleTreatmentHorizontal7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -1003,29 +1127,29 @@ class DetailHorizontalHero5(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class TitleTreatmentStacked4(BaseModel):
+class TitleTreatmentStacked5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
-class VideoHorizontalHero6(BaseModel):
+class VideoHorizontalHero7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork7(BaseModel):
+class Artwork9(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    title_treatment_horizontal: TitleTreatmentHorizontal6 | None = Field(None, alias='title.treatment.horizontal')
+    title_treatment_horizontal: TitleTreatmentHorizontal7 | None = Field(None, alias='title.treatment.horizontal')
     program_tile: ProgramTile10 | None = Field(None, alias='program.tile')
     detail_vertical_hero: DetailVerticalHero5 | None = Field(None, alias='detail.vertical.hero')
     program_vertical_tile: ProgramVerticalTile8 | None = Field(None, alias='program.vertical.tile')
     detail_horizontal_hero: DetailHorizontalHero5 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked4 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero6 | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_stacked: TitleTreatmentStacked5 | None = Field(None, alias='title.treatment.stacked')
+    video_horizontal_hero: VideoHorizontalHero7 | None = Field(None, alias='video.horizontal.hero')
 
 class ExternalIdentifier3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -1052,20 +1176,6 @@ class BrandWatermarkTopRight3(BaseModel):
     image_id: str | None = None
 
 class BrandLogo3(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
-
-class ProgramTile11(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
-
-class ProgramVerticalTile9(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
@@ -1100,6 +1210,20 @@ class BrandLogoBottomRight3(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
+class ProgramTile11(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
+class ProgramVerticalTile9(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    path: str | None = None
+    accent: Accent | None = None
+    image_type: str | None = None
+    image_id: str | None = None
+
 class BrandWatermarkDark3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
@@ -1114,17 +1238,17 @@ class BrandHubBackground3(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork8(BaseModel):
+class Artwork10(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     brand_watermark: BrandWatermark3 | None = Field(None, alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight3 | None = Field(None, alias='brand.watermark.top.right')
     brand_logo: BrandLogo3 | None = Field(None, alias='brand.logo')
-    program_tile: ProgramTile11 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile9 | None = Field(None, alias='program.vertical.tile')
     network_tile: NetworkTile3 | None = Field(None, alias='network.tile')
     brand_watermark_bottom_right: BrandWatermarkBottomRight3 | None = Field(None, alias='brand.watermark.bottom.right')
     brand_logo_top_right: BrandLogoTopRight3 | None = Field(None, alias='brand.logo.top.right')
     brand_logo_bottom_right: BrandLogoBottomRight3 | None = Field(None, alias='brand.logo.bottom.right')
+    program_tile: ProgramTile11 | None = Field(None, alias='program.tile')
+    program_vertical_tile: ProgramVerticalTile9 | None = Field(None, alias='program.vertical.tile')
     brand_watermark_dark: BrandWatermarkDark3 | None = Field(None, alias='brand.watermark.dark')
     brand_hub_background: BrandHubBackground3 | None = Field(None, alias='brand.hub.background')
 
@@ -1132,7 +1256,7 @@ class PrimaryBranding3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     id: UUID | None = None
     name: str | None = None
-    artwork: Artwork8 | None = None
+    artwork: Artwork10 | None = None
 
 class Entity1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -1142,11 +1266,11 @@ class Entity1(BaseModel):
     p13n_href: str | None = None
     name: str | None = None
     description: str | None = None
-    artwork: Artwork7 | None = None
+    artwork: Artwork9 | None = None
     metrics_info: MetricsInfo5 | None = None
     personalization: Personalization3 | None = None
     device_context_failure: bool | None = None
-    browse: Browse1 | None = None
+    browse: Browse5 | None = None
     genre_names: list[str] | None = None
     episodes: list[Any] | None = None
     rating: Rating | None = None
