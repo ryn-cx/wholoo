@@ -7,7 +7,7 @@ from typing import Any
 
 class MetricsInfo(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_type: str
     target_name: str
     selection_tracking_id: UUID
@@ -38,7 +38,7 @@ class Horizontal(BaseModel):
 class Artwork(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
-    horizontal: Horizontal
+    horizontal: Horizontal | None = None
 
 class Headline(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -80,29 +80,45 @@ class PrimaryBranding(BaseModel):
     name: str
     artwork: Artwork1
 
+class Subtitle(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    text: str
+    index: list[list[int]]
+
+class ShortBody(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    text: str
+    index: list[list[int]]
+
 class Visuals(BaseModel):
     model_config = ConfigDict(defer_build=True)
     artwork: Artwork
     headline: Headline
-    body: Body
+    body: Body | None = None
     action_text: str
-    short_subtitle: ShortSubtitle
+    short_subtitle: ShortSubtitle | None = None
     primary_branding: PrimaryBranding | None = None
+    subtitle: Subtitle | None = None
+    short_body: ShortBody | None = None
+
+class Params(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    network_breadcrumb: UUID | None = None
 
 class MetricsInfo1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     action_type: str
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_type: str
     target_display_name: str
 
 class Browse(BaseModel):
     model_config = ConfigDict(defer_build=True)
     target_type: str
-    target_id: UUID
+    target_id: UUID | str = Field(union_mode='left_to_right')
     target_name: str
     target_theme: str
-    params: dict[str, Any]
+    params: Params
     href: str
     browse_theme: str
     metrics_info: MetricsInfo1
@@ -134,7 +150,7 @@ class Horizontal1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     artwork_type: str
-    image: Image1
+    image: Image1 | None = None
     text: str
 
 class Vertical(BaseModel):
@@ -154,7 +170,7 @@ class Browse1(BaseModel):
     target_type: str
     target_id: UUID
     target_theme: str
-    params: dict[str, Any]
+    params: Params
     type: str
 
 class Action1(BaseModel):
@@ -230,7 +246,7 @@ class Bundle(BaseModel):
     duration: int
     availability: Availability
     bundle_type: str
-    rating: str
+    rating: str | None = None
     open_credit_end_pos: int
     close_credit_start_pos: int
     rights: Rights
@@ -260,25 +276,45 @@ class Playback(BaseModel):
     metrics_info: MetricsInfo4
     type: str
 
+class GetRelated(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    entity_id: UUID
+    entity_type: str
+    view_template: str
+
 class Actions(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    browse: Browse
-    context_menu: ContextMenu
+    browse: Browse | None = None
+    context_menu: ContextMenu | None = None
     playback: Playback | None = None
+    get_related: GetRelated | None = None
 
 class Rating(BaseModel):
     model_config = ConfigDict(defer_build=True)
     code: str | None = None
 
+class Availability1(BaseModel):
+    model_config = ConfigDict(defer_build=True)
+    field_type: str = Field(..., alias='_type')
+    start_date: AwareDatetime
+    end_date: AwareDatetime
+    location_requirement: str
+    is_available: bool
+    stormflow_id: UUID | None = None
+    airing_start_date: AwareDatetime | None = None
+    airing_end_date: AwareDatetime | None = None
+
 class EntityMetadata(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    genre_names: list[str]
-    premiere_date: AwareDatetime
-    rating: Rating
+    genre_names: list[str] | None = None
+    premiere_date: AwareDatetime | None = None
+    rating: Rating | None = None
     target_name: str
     is_warm: bool
     network_name: str | None = None
-    availability: Availability | None = None
+    availability: Availability1 | None = None
+    league_name: str | None = None
+    sport_name: str | None = None
 
 class Result(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -291,22 +327,10 @@ class Result(BaseModel):
     actions: Actions
     entity_metadata: EntityMetadata
 
-class Group(BaseModel):
+class SearchModel(BaseModel):
     model_config = ConfigDict(defer_build=True)
     category: str
     results: list[Result]
-
-class Metadata(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    search_result_type: str
-    explanation: str
-    selection_tracking_id: UUID
-
-class SearchModel(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    groups: list[Group]
-    metadata: Metadata
-    device_context_failure: bool
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

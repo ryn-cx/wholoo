@@ -21,36 +21,12 @@ class Artwork(BaseModel):
     model_config = ConfigDict(defer_build=True)
     video_horizontal_hero: VideoHorizontalHero = Field(..., alias='video.horizontal.hero')
 
-class MetricsInfo(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    field_type: str = Field(..., alias='_type')
-    page_type: str
-
-class Browse(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    target_type: str
-    target_id: UUID
-    target_theme: str
-    params: dict[str, Any]
-    type: str
-
-class VideoHorizontalHero1(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
-class Artwork1(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero1 = Field(..., alias='video.horizontal.hero')
-
 class ExternalIdentifier(BaseModel):
     model_config = ConfigDict(defer_build=True)
     namespace: str
     id: str
 
-class MetricsInfo1(BaseModel):
+class MetricsInfo(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     metrics_asset_name: str
@@ -61,7 +37,7 @@ class Personalization(BaseModel):
     model_config = ConfigDict(defer_build=True)
     eab: str
 
-class Browse1(BaseModel):
+class Browse(BaseModel):
     model_config = ConfigDict(defer_build=True)
     target_type: str
     target_id: UUID
@@ -161,7 +137,7 @@ class BrandLogoBottomRight(BaseModel):
     image_type: str
     image_id: str
 
-class Artwork2(BaseModel):
+class Artwork1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     brand_watermark: BrandWatermark = Field(..., alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight = Field(..., alias='brand.watermark.top.right')
@@ -175,7 +151,7 @@ class PrimaryBranding(BaseModel):
     model_config = ConfigDict(defer_build=True)
     id: UUID
     name: str
-    artwork: Artwork2
+    artwork: Artwork1
 
 class Rating(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -231,11 +207,11 @@ class Entity(BaseModel):
     href: str
     name: str
     description: str
-    artwork: Artwork1
-    metrics_info: MetricsInfo1
+    artwork: Artwork
+    metrics_info: MetricsInfo
     personalization: Personalization
     device_context_failure: bool
-    browse: Browse1
+    browse: Browse
     series_id: UUID
     series_name: str
     season: str
@@ -252,7 +228,7 @@ class Entity(BaseModel):
     exclusivity: str
     duration: int | None = None
 
-class MetricsInfo2(BaseModel):
+class MetricsInfo1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     reco_tags: str
     selection_tracking_id: UUID
@@ -262,7 +238,7 @@ class Focus(BaseModel):
     field_type: str = Field(..., alias='_type')
     entity: Entity
     action_text: str
-    metrics_info: MetricsInfo2
+    metrics_info: MetricsInfo1
 
 class VodItems(BaseModel):
     model_config = ConfigDict(defer_build=True)
@@ -276,18 +252,18 @@ class UserState(BaseModel):
     is_warm: bool
     is_cold: bool
 
-class VideoHorizontalHero2(BaseModel):
+class VideoHorizontalHero1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     path: str
     accent: Accent
     image_type: str
     image_id: str
 
-class Artwork3(BaseModel):
+class Artwork2(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero2 = Field(..., alias='video.horizontal.hero')
+    video_horizontal_hero: VideoHorizontalHero1 = Field(..., alias='video.horizontal.hero')
 
-class MetricsInfo3(BaseModel):
+class MetricsInfo2(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     external_identifiers: list[ExternalIdentifier]
@@ -343,11 +319,11 @@ class Entity1(BaseModel):
     p13n_href: str
     name: str
     description: str
-    artwork: Artwork3
-    metrics_info: MetricsInfo3
+    artwork: Artwork2
+    metrics_info: MetricsInfo2
     personalization: Personalization
     device_context_failure: bool
-    browse: Browse1
+    browse: Browse
     series_id: UUID
     series_name: str
     season: str
@@ -363,28 +339,13 @@ class Entity1(BaseModel):
     actions: list[None]
     duration: int | None = None
 
-class Details(BaseModel):
+class EpisodeModel(BaseModel):
     model_config = ConfigDict(defer_build=True)
     field_type: str = Field(..., alias='_type')
     vod_items: VodItems
     user_state: UserState
     entity: Entity1
     credits: list[None]
-
-class EpisodeModel(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    field_type: str = Field(..., alias='_type')
-    id: UUID
-    name: str
-    theme: str
-    description: str
-    artwork: Artwork
-    metrics_info: MetricsInfo
-    device_context_failure: bool
-    browse: Browse
-    components: list[None]
-    details: Details
-    actions: list[None]
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

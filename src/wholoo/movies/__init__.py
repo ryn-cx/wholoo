@@ -1,62 +1,70 @@
-# TODO: Validate
-"""Contains the Movies class."""
-
 from __future__ import annotations
 
 import json
 from http import HTTPStatus
 from logging import NullHandler, getLogger
-from typing import ClassVar
+from typing import Any
 
 from wholoo.discover_hub import DiscoverHub
-from wholoo.exceptions import MovieNotFoundError, ResourceNotFoundError
+from wholoo.exceptions import MovieNotFoundError
 from wholoo.movies.models import MoviesModel, model_validate_json
 
 logger = getLogger(__name__)
 logger.addHandler(NullHandler())
 
 
-# TODO: Validate
-class Movies(DiscoverHub):
-    """Manage the movie details file.
+def extract_movie(response: str) -> dict[str, Any]:
+    """Extract the movie from the Movies response."""
+    return json.loads(response)["details"]
 
-    Source: https://www.hulu.com/movie/{content_id}
+
+def _validate_download(response: str, content_id: str) -> str:
+    if not extract_movie(response).get("entity"):
+        raise MovieNotFoundError(content_id, HTTPStatus.OK, response)
+    return response
+
+
+class Movies(DiscoverHub):
+    """Contains information about a specific movie.
+
+    - Example Request:
+        - URL: https://www.hulu.com/movie/0957a9a1-015a-4bbf-913b-9da75572bb8d
+
+        - Headers:
+            - GET /content/v5/hubs/movie/0957a9a1-015a-4bbf-913b-9da75572bb8d?
+                - schema=3&
+                - limit=1999&
+                - device_info=web:4.46.0&
+                - referralHost=production&
+                - cacheKey=0.31194440120842093&
+                - pageType=DETAILS
+                - HTTP/1.1
+            - Host: discover.hulu.com
+            - User-Agent: __REDACTED__
+            - Accept: */*
+            - Accept-Language: en-US,en;q=0.9
+            - Accept-Encoding: gzip, deflate, br, zstd
+            - Referer: https://www.hulu.com/
+            - Origin: https://www.hulu.com
+            - Sec-Fetch-Dest: empty
+            - Sec-Fetch-Mode: cors
+            - Sec-Fetch-Site: same-site
+            - Connection: keep-alive
+            - Cookie: __REDACTED__
+            - Priority: u=4
     """
 
-    content_type: ClassVar[str] = "movie"
-
-    # TODO: Validate
-    def __call__(self, content_id: str, *, cache_key: str | None = None) -> MoviesModel:
-        """Look the movie up and return the model it is read into."""
+    def __call__(self, content_id: str) -> MoviesModel:
+        """Download and parse the Movies file."""
         log_id = self.get_log_id(self.__call__, locals())
-        return self.load(self.download(content_id, cache_key=cache_key), log_id)
+        return self.load(self.download(content_id), log_id)
 
-    # TODO: Validate
-    def download(self, content_id: str, *, cache_key: str | None = None) -> str:
-        """Download the movie details file."""
+    def download(self, content_id: str) -> str:
+        """Download the Movies file."""
         log_id = self.get_log_id(self.download, locals())
-        try:
-            response = self._download(content_id, cache_key, log_id)
-        except ResourceNotFoundError as err:
-            raise MovieNotFoundError(
-                content_id,
-                err.status_code,
-                err.response,
-            ) from err
-        return self._validate_download(response, content_id)
+        response = self._download("movie", content_id, 1999, log_id)
+        return _validate_download(response, content_id)
 
-    # TODO: Validate
-    def _validate_download(self, response: str, content_id: str) -> str:
-        """Check that the hub describes a movie.
-
-        An id nothing is under is answered with a 200 carrying a hub that has
-        no entity in it.
-        """
-        if not json.loads(response).get("details", {}).get("entity"):
-            raise MovieNotFoundError(content_id, HTTPStatus.OK, response)
-        return response
-
-    # TODO: Validate
     def load(self, data: str, log_id: str = "") -> MoviesModel:
-        """Read a downloaded movie details file into its model."""
-        return model_validate_json(data, log_id or self.default_log_id)
+        """Load a Movies file into its model."""
+        return model_validate_json(extract_movie(data), log_id or self.default_log_id)

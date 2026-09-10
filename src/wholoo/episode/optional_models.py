@@ -20,36 +20,12 @@ class Artwork(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
 
-class MetricsInfo(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    page_type: str | None = None
-
-class Browse(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_type: str | None = None
-    target_id: UUID | None = None
-    target_theme: str | None = None
-    params: dict[str, Any] | None = None
-    type: str | None = None
-
-class VideoHorizontalHero1(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
-
-class Artwork1(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
-
 class ExternalIdentifier(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     namespace: str | None = None
     id: str | None = None
 
-class MetricsInfo1(BaseModel):
+class MetricsInfo(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     metrics_asset_name: str | None = None
@@ -60,7 +36,7 @@ class Personalization(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     eab: str | None = None
 
-class Browse1(BaseModel):
+class Browse(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
     target_id: UUID | None = None
@@ -160,7 +136,7 @@ class BrandLogoBottomRight(BaseModel):
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork2(BaseModel):
+class Artwork1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     brand_watermark: BrandWatermark | None = Field(None, alias='brand.watermark')
     brand_watermark_top_right: BrandWatermarkTopRight | None = Field(None, alias='brand.watermark.top.right')
@@ -174,7 +150,7 @@ class PrimaryBranding(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     id: UUID | None = None
     name: str | None = None
-    artwork: Artwork2 | None = None
+    artwork: Artwork1 | None = None
 
 class Rating(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -230,11 +206,11 @@ class Entity(BaseModel):
     href: str | None = None
     name: str | None = None
     description: str | None = None
-    artwork: Artwork1 | None = None
-    metrics_info: MetricsInfo1 | None = None
+    artwork: Artwork | None = None
+    metrics_info: MetricsInfo | None = None
     personalization: Personalization | None = None
     device_context_failure: bool | None = None
-    browse: Browse1 | None = None
+    browse: Browse | None = None
     series_id: UUID | None = None
     series_name: str | None = None
     season: str | None = None
@@ -251,7 +227,7 @@ class Entity(BaseModel):
     exclusivity: str | None = None
     duration: int | None = None
 
-class MetricsInfo2(BaseModel):
+class MetricsInfo1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     reco_tags: str | None = None
     selection_tracking_id: UUID | None = None
@@ -261,7 +237,7 @@ class Focus(BaseModel):
     field_type: str | None = Field(None, alias='_type')
     entity: Entity | None = None
     action_text: str | None = None
-    metrics_info: MetricsInfo2 | None = None
+    metrics_info: MetricsInfo1 | None = None
 
 class VodItems(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -275,18 +251,18 @@ class UserState(BaseModel):
     is_warm: bool | None = None
     is_cold: bool | None = None
 
-class VideoHorizontalHero2(BaseModel):
+class VideoHorizontalHero1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     path: str | None = None
     accent: Accent | None = None
     image_type: str | None = None
     image_id: str | None = None
 
-class Artwork3(BaseModel):
+class Artwork2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero2 | None = Field(None, alias='video.horizontal.hero')
+    video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
 
-class MetricsInfo3(BaseModel):
+class MetricsInfo2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     external_identifiers: list[ExternalIdentifier] | None = None
@@ -342,11 +318,11 @@ class Entity1(BaseModel):
     p13n_href: str | None = None
     name: str | None = None
     description: str | None = None
-    artwork: Artwork3 | None = None
-    metrics_info: MetricsInfo3 | None = None
+    artwork: Artwork2 | None = None
+    metrics_info: MetricsInfo2 | None = None
     personalization: Personalization | None = None
     device_context_failure: bool | None = None
-    browse: Browse1 | None = None
+    browse: Browse | None = None
     series_id: UUID | None = None
     series_name: str | None = None
     season: str | None = None
@@ -362,28 +338,13 @@ class Entity1(BaseModel):
     actions: list[Any] | None = None
     duration: int | None = None
 
-class Details(BaseModel):
+class EpisodeModel(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     field_type: str | None = Field(None, alias='_type')
     vod_items: VodItems | None = None
     user_state: UserState | None = None
     entity: Entity1 | None = None
     credits: list[Any] | None = None
-
-class EpisodeModel(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    name: str | None = None
-    theme: str | None = None
-    description: str | None = None
-    artwork: Artwork | None = None
-    metrics_info: MetricsInfo | None = None
-    device_context_failure: bool | None = None
-    browse: Browse | None = None
-    components: list[Any] | None = None
-    details: Details | None = None
-    actions: list[Any] | None = None
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

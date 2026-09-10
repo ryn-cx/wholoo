@@ -1,6 +1,3 @@
-# TODO: Validate
-"""Contains the Wholoo class."""
-
 from __future__ import annotations
 
 from http import HTTPStatus
@@ -12,7 +9,6 @@ from get_around import GetAround
 
 from wholoo.all_movies import AllMovies
 from wholoo.all_series import AllSeries
-from wholoo.collection import Collection
 from wholoo.episode import Episode
 from wholoo.exceptions import CookieError, HTTPError, ResourceNotFoundError
 from wholoo.genre import Genre
@@ -35,22 +31,15 @@ type Params = Mapping[str, str] | list[tuple[str, str]]
 """Query parameters, as a mapping or as pairs when a name is repeated."""
 
 
-# TODO: Validate
 class Wholoo:
     """Hulu API wrapper."""
 
-    # TODO: Validate
     def __init__(
         self,
         get_around_client: GetAround | None = None,
         sleep_time: float = 0,
     ) -> None:
-        """Initializes the Wholoo client.
-
-        The client holds one attribute per endpoint, so `client.movies(id)`
-        looks a movie up and `client.movies.download(id)` and
-        `client.movies.load(data)` are the halves of it.
-        """
+        """Initialize the Wholoo client."""
         self.get_around_client = get_around_client or GetAround()
         self.sleep_time = sleep_time
         self._cookie_value = ""
@@ -59,14 +48,12 @@ class Wholoo:
         self.tv = TV(self)
         self.season = Season(self)
         self.episode = Episode(self)
-        self.collection = Collection(self)
         self.search = Search(self)
         self.genres = Genres(self)
         self.genre = Genre(self)
         self.all_series = AllSeries(self)
         self.all_movies = AllMovies(self)
 
-    # TODO: Validate
     @property
     def _cookie(self) -> str:
         if not self._cookie_value:
@@ -75,11 +62,7 @@ class Wholoo:
 
     # TODO: Validate
     def _download_cookie(self) -> None:
-        """Ask hulu.com for a session cookie.
-
-        Raises:
-            CookieError: If the site answers without setting any cookie.
-        """
+        """Download a session cookie from hulu.com."""
         logger.debug("Downloading cookie:")
         start = monotonic()
         response = self.get_around_client.get(f"{WEB_ORIGIN}/", follow_redirects=True)
@@ -107,15 +90,7 @@ class Wholoo:
         headers: dict[str, str],
         log_id: str,
     ) -> str:
-        """Downloads from the API.
-
-        What comes back is the body as it was served, and reading it into a
-        model is the endpoint's `load`.
-
-        Raises:
-            ResourceNotFoundError: If the API says the thing does not exist.
-            HTTPError: If the request is answered with any other error.
-        """
+        """Download from the API."""
         request_headers = {
             # "Host": Set by httpx
             # "User-Agent":  Set by httpx
@@ -152,15 +127,7 @@ class Wholoo:
 
     # TODO: Validate
     def download_page(self, path: str, log_id: str) -> str:
-        """Downloads one page of the website.
-
-        What comes back is the HTML as it was served, and picking the data
-        out of it is the endpoint's own.
-
-        Raises:
-            ResourceNotFoundError: If the site says the page does not exist.
-            HTTPError: If the request is answered with any other error.
-        """
+        """Download one page of the website."""
         request_headers = {
             # "Host": Set by httpx
             # "User-Agent":  Set by httpx

@@ -6,7 +6,7 @@ from typing import Any
 
 class MetricsInfo(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_id: UUID | None = None
+    target_id: UUID | str | None = Field(default=None, union_mode='left_to_right')
     target_type: str | None = None
     target_name: str | None = None
     selection_tracking_id: UUID | None = None
@@ -79,6 +79,16 @@ class PrimaryBranding(BaseModel):
     name: str | None = None
     artwork: Artwork1 | None = None
 
+class Subtitle(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    text: str | None = None
+    index: list[list[int]] | None = None
+
+class ShortBody(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    text: str | None = None
+    index: list[list[int]] | None = None
+
 class Visuals(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     artwork: Artwork | None = None
@@ -87,21 +97,27 @@ class Visuals(BaseModel):
     action_text: str | None = None
     short_subtitle: ShortSubtitle | None = None
     primary_branding: PrimaryBranding | None = None
+    subtitle: Subtitle | None = None
+    short_body: ShortBody | None = None
+
+class Params(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    network_breadcrumb: UUID | None = None
 
 class MetricsInfo1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     action_type: str | None = None
-    target_id: UUID | None = None
+    target_id: UUID | str | None = Field(default=None, union_mode='left_to_right')
     target_type: str | None = None
     target_display_name: str | None = None
 
 class Browse(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     target_type: str | None = None
-    target_id: UUID | None = None
+    target_id: UUID | str | None = Field(default=None, union_mode='left_to_right')
     target_name: str | None = None
     target_theme: str | None = None
-    params: dict[str, Any] | None = None
+    params: Params | None = None
     href: str | None = None
     browse_theme: str | None = None
     metrics_info: MetricsInfo1 | None = None
@@ -153,7 +169,7 @@ class Browse1(BaseModel):
     target_type: str | None = None
     target_id: UUID | None = None
     target_theme: str | None = None
-    params: dict[str, Any] | None = None
+    params: Params | None = None
     type: str | None = None
 
 class Action1(BaseModel):
@@ -259,15 +275,33 @@ class Playback(BaseModel):
     metrics_info: MetricsInfo4 | None = None
     type: str | None = None
 
+class GetRelated(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    entity_id: UUID | None = None
+    entity_type: str | None = None
+    view_template: str | None = None
+
 class Actions(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     browse: Browse | None = None
     context_menu: ContextMenu | None = None
     playback: Playback | None = None
+    get_related: GetRelated | None = None
 
 class Rating(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     code: str | None = None
+
+class Availability1(BaseModel):
+    model_config = ConfigDict(extra='ignore', defer_build=True)
+    field_type: str | None = Field(None, alias='_type')
+    start_date: AwareDatetime | None = None
+    end_date: AwareDatetime | None = None
+    location_requirement: str | None = None
+    is_available: bool | None = None
+    stormflow_id: UUID | None = None
+    airing_start_date: AwareDatetime | None = None
+    airing_end_date: AwareDatetime | None = None
 
 class EntityMetadata(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -277,7 +311,9 @@ class EntityMetadata(BaseModel):
     target_name: str | None = None
     is_warm: bool | None = None
     network_name: str | None = None
-    availability: Availability | None = None
+    availability: Availability1 | None = None
+    league_name: str | None = None
+    sport_name: str | None = None
 
 class Result(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
@@ -290,22 +326,10 @@ class Result(BaseModel):
     actions: Actions | None = None
     entity_metadata: EntityMetadata | None = None
 
-class Group(BaseModel):
+class SearchModel(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
     category: str | None = None
     results: list[Result] | None = None
-
-class Metadata(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    search_result_type: str | None = None
-    explanation: str | None = None
-    selection_tracking_id: UUID | None = None
-
-class SearchModel(BaseModel):
-    model_config = ConfigDict(extra='ignore', defer_build=True)
-    groups: list[Group] | None = None
-    metadata: Metadata | None = None
-    device_context_failure: bool | None = None
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

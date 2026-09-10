@@ -23,7 +23,7 @@ class HTTPError(WholooError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize the HTTPError with the status code and response body."""
+        """Initialize HTTPError."""
         self.status_code = status_code
         self.response = response
         super().__init__(f"Unexpected response status code: {status_code}")
@@ -45,7 +45,7 @@ class MovieNotFoundError(ResourceNotFoundError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize with the movie id and the originating response."""
+        """Initialize MovieNotFoundError."""
         self.content_id = content_id
         super().__init__(status_code, response)
 
@@ -61,7 +61,7 @@ class SeriesNotFoundError(ResourceNotFoundError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize with the series id and the originating response."""
+        """Initialize SeriesNotFoundError."""
         self.content_id = content_id
         super().__init__(status_code, response)
 
@@ -77,7 +77,7 @@ class EpisodeNotFoundError(ResourceNotFoundError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize with the episode id and the originating response."""
+        """Initialize EpisodeNotFoundError."""
         self.episode_id = episode_id
         super().__init__(status_code, response)
 
@@ -94,27 +94,9 @@ class SeasonNotFoundError(ResourceNotFoundError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize with the series id, season number and originating response."""
+        """Initialize SeasonNotFoundError."""
         self.series_id = series_id
         self.season = season
-        super().__init__(status_code, response)
-
-
-# TODO: Validate
-class CollectionNotFoundError(ResourceNotFoundError):
-    """Raised when the requested collection of a hub does not exist."""
-
-    # TODO: Validate
-    def __init__(
-        self,
-        hub: str,
-        collection_id: str,
-        status_code: int,
-        response: str | dict[str, Any] | None,
-    ) -> None:
-        """Initialize with the hub, the collection id and the originating response."""
-        self.hub = hub
-        self.collection_id = collection_id
         super().__init__(status_code, response)
 
 
@@ -134,7 +116,7 @@ class GenreNotFoundError(ResourceNotFoundError):
         status_code: int,
         response: str | dict[str, Any] | None,
     ) -> None:
-        """Initialize with the genre id and the originating response."""
+        """Initialize GenreNotFoundError."""
         self.genre_id = genre_id
         super().__init__(status_code, response)
 
