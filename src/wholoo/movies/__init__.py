@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from http import HTTPStatus
 from logging import NullHandler, getLogger
-from typing import Any
 
 from wholoo.discover_hub import DiscoverHub
 from wholoo.exceptions import MovieNotFoundError
@@ -13,13 +12,9 @@ logger = getLogger(__name__)
 logger.addHandler(NullHandler())
 
 
-def extract_movie(response: str) -> dict[str, Any]:
-    """Extract the movie from the Movies response."""
-    return json.loads(response)["details"]
-
-
+# TODO: Validate
 def _validate_download(response: str, content_id: str) -> str:
-    if not extract_movie(response).get("entity"):
+    if not json.loads(response)["details"].get("entity"):
         raise MovieNotFoundError(content_id, HTTPStatus.OK, response)
     return response
 
@@ -65,6 +60,7 @@ class Movies(DiscoverHub):
         response = self._download("movie", content_id, 1999, log_id)
         return _validate_download(response, content_id)
 
+    # TODO: Validate
     def load(self, data: str, log_id: str = "") -> MoviesModel:
         """Load a Movies file into its model."""
-        return model_validate_json(extract_movie(data), log_id or self.default_log_id)
+        return model_validate_json(data, log_id or self.default_log_id)

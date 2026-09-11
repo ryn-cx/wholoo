@@ -19,8 +19,8 @@ MOVIE_IDS = [
 @pytest.mark.parametrize("content_id", MOVIE_IDS)
 def test_download(client: Wholoo, content_id: str) -> None:
     movie = client.movies(content_id)
-    assert str(movie.entity.id) == content_id
-    assert movie.entity.name
+    assert str(movie.details.entity.id) == content_id
+    assert movie.details.entity.name
 
 
 # TODO: Validate
