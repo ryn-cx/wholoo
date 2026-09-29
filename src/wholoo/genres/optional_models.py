@@ -5,17 +5,17 @@ from typing import Any
 
 class Item(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    name: str | None = None
-    href: str | None = None
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
 
 class GenresModel(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    type: str | None = None
-    title: str | None = None
+    type: str | Any = Field(default=None, union_mode='left_to_right')
+    title: str | Any = Field(default=None, union_mode='left_to_right')
     view_all_url: Any | None = Field(None, alias='viewAllUrl')
-    items: list[Item] | None = None
-    url_format: str | None = Field(None, alias='urlFormat')
-    metrics: dict[str, Any] | None = None
+    items: list[Item] | Any = Field(default=None, union_mode='left_to_right')
+    url_format: str | Any = Field(None, alias='urlFormat', union_mode='left_to_right')
+    metrics: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

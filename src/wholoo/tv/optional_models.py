@@ -6,1312 +6,1312 @@ from typing import Any
 
 class Accent(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    hue: int | None = None
-    classification: str | None = None
+    hue: int | Any = Field(default=None, union_mode='left_to_right')
+    classification: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    title_treatment_horizontal: TitleTreatmentHorizontal | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile | None = Field(None, alias='program.tile')
-    detail_vertical_hero: DetailVerticalHero | None = Field(None, alias='detail.vertical.hero')
-    program_vertical_tile: ProgramVerticalTile | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    detail_vertical_hero: DetailVerticalHero | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
 
 class MetricsInfo(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    page_type: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    page_type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Browse(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_type: str | None = None
-    target_id: UUID | None = None
-    target_theme: str | None = None
-    params: dict[str, Any] | None = None
-    type: str | None = None
+    target_type: str | Any = Field(default=None, union_mode='left_to_right')
+    target_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    target_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    params: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
+    type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalWide(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    detail_vertical_hero: DetailVerticalHero1 | None = Field(None, alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal1 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile1 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile1 | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero1 | None = Field(None, alias='detail.horizontal.hero')
-    video_horizontal_hero: VideoHorizontalHero1 | None = Field(None, alias='video.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked1 | None = Field(None, alias='title.treatment.stacked')
-    detail_horizontal_wide: DetailHorizontalWide | None = Field(None, alias='detail.horizontal.wide')
+    detail_vertical_hero: DetailVerticalHero1 | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal1 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile1 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile1 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero1 | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero1 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked1 | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    detail_horizontal_wide: DetailHorizontalWide | Any = Field(None, alias='detail.horizontal.wide', union_mode='left_to_right')
 
 class VideoHorizontalHero2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoVerticalHero(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero2 | None = Field(None, alias='video.horizontal.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal2 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile2 | None = Field(None, alias='program.tile')
-    video_vertical_hero: VideoVerticalHero | None = Field(None, alias='video.vertical.hero')
+    video_horizontal_hero: VideoHorizontalHero2 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal2 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile2 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    video_vertical_hero: VideoVerticalHero | Any = Field(None, alias='video.vertical.hero', union_mode='left_to_right')
 
 class ExternalIdentifier(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    namespace: str | None = None
-    id: UUID | str | None = Field(default=None, union_mode='left_to_right')
+    namespace: str | Any = Field(default=None, union_mode='left_to_right')
+    id: UUID | str | Any = Field(default=None, union_mode='left_to_right')
 
 class MetricsInfo1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    metrics_asset_name: str | None = None
-    airing_type: str | None = None
-    external_identifiers: list[ExternalIdentifier] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    metrics_asset_name: str | Any = Field(default=None, union_mode='left_to_right')
+    airing_type: str | Any = Field(default=None, union_mode='left_to_right')
+    external_identifiers: list[ExternalIdentifier] | Any = Field(default=None, union_mode='left_to_right')
 
 class Personalization(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    eab: str | None = None
+    eab: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Browse1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_type: str | None = None
-    target_id: UUID | None = None
-    target_theme: str | None = None
-    params: dict[str, Any] | None = None
-    href: str | None = None
-    browse_theme: str | None = None
-    type: str | None = None
+    target_type: str | Any = Field(default=None, union_mode='left_to_right')
+    target_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    target_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    params: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    browse_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Availability(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    start_date: AwareDatetime | None = None
-    end_date: AwareDatetime | None = None
-    location_requirement: str | None = None
-    is_available: bool | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    start_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    end_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    location_requirement: str | Any = Field(default=None, union_mode='left_to_right')
+    is_available: bool | Any = Field(default=None, union_mode='left_to_right')
 
 class Rights(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    startover: bool | None = None
-    recordable: bool | None = None
-    offline: bool | None = None
-    client_override: bool | None = None
-    co_viewing: bool | None = None
+    startover: bool | Any = Field(default=None, union_mode='left_to_right')
+    recordable: bool | Any = Field(default=None, union_mode='left_to_right')
+    offline: bool | Any = Field(default=None, union_mode='left_to_right')
+    client_override: bool | Any = Field(default=None, union_mode='left_to_right')
+    co_viewing: bool | Any = Field(default=None, union_mode='left_to_right')
 
 class Bundle(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: int | None = None
-    eab_id: str | None = None
-    network_id: UUID | None = None
-    network_name: str | None = None
-    duration: int | None = None
-    availability: Availability | None = None
-    bundle_type: str | None = None
-    rating: str | None = None
-    open_credit_end_pos: int | None = None
-    close_credit_start_pos: int | None = None
-    rights: Rights | None = None
-    cp_id: int | None = None
-    all_etag: str | None = None
-    rights_etag: str | None = None
-    airings_etag: str | None = None
-    stream_etag: str | None = None
-    rights_ttl: int | None = None
-    airings_ttl: int | None = None
-    stream_ttl: int | None = None
-    package_id: int | None = None
-    av_features: list[str] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: int | Any = Field(default=None, union_mode='left_to_right')
+    eab_id: str | Any = Field(default=None, union_mode='left_to_right')
+    network_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    network_name: str | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    availability: Availability | Any = Field(default=None, union_mode='left_to_right')
+    bundle_type: str | Any = Field(default=None, union_mode='left_to_right')
+    rating: str | Any = Field(default=None, union_mode='left_to_right')
+    open_credit_end_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    close_credit_start_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    rights: Rights | Any = Field(default=None, union_mode='left_to_right')
+    cp_id: int | Any = Field(default=None, union_mode='left_to_right')
+    all_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    airings_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    stream_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    airings_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    stream_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    package_id: int | Any = Field(default=None, union_mode='left_to_right')
+    av_features: list[str] | Any = Field(default=None, union_mode='left_to_right')
 
 class Rating(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    code: str | None = None
+    code: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class SeriesArtwork(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    detail_vertical_hero: DetailVerticalHero2 | None = Field(None, alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal3 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile3 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile2 | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero2 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked2 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero3 | None = Field(None, alias='video.horizontal.hero')
+    detail_vertical_hero: DetailVerticalHero2 | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal3 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile3 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile2 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero2 | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked2 | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero3 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
 
 class BrandWatermark(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkTopRight(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogo(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class NetworkTile(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkBottomRight(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoTopRight(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoBottomRight(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkDark(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandHubBackground(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    brand_watermark: BrandWatermark | None = Field(None, alias='brand.watermark')
-    brand_watermark_top_right: BrandWatermarkTopRight | None = Field(None, alias='brand.watermark.top.right')
-    brand_logo: BrandLogo | None = Field(None, alias='brand.logo')
-    network_tile: NetworkTile | None = Field(None, alias='network.tile')
-    brand_watermark_bottom_right: BrandWatermarkBottomRight | None = Field(None, alias='brand.watermark.bottom.right')
-    brand_logo_top_right: BrandLogoTopRight | None = Field(None, alias='brand.logo.top.right')
-    brand_logo_bottom_right: BrandLogoBottomRight | None = Field(None, alias='brand.logo.bottom.right')
-    brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
-    program_tile: ProgramTile4 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile3 | None = Field(None, alias='program.vertical.tile')
-    brand_hub_background: BrandHubBackground | None = Field(None, alias='brand.hub.background')
+    brand_watermark: BrandWatermark | Any = Field(None, alias='brand.watermark', union_mode='left_to_right')
+    brand_watermark_top_right: BrandWatermarkTopRight | Any = Field(None, alias='brand.watermark.top.right', union_mode='left_to_right')
+    brand_logo: BrandLogo | Any = Field(None, alias='brand.logo', union_mode='left_to_right')
+    network_tile: NetworkTile | Any = Field(None, alias='network.tile', union_mode='left_to_right')
+    brand_watermark_bottom_right: BrandWatermarkBottomRight | Any = Field(None, alias='brand.watermark.bottom.right', union_mode='left_to_right')
+    brand_logo_top_right: BrandLogoTopRight | Any = Field(None, alias='brand.logo.top.right', union_mode='left_to_right')
+    brand_logo_bottom_right: BrandLogoBottomRight | Any = Field(None, alias='brand.logo.bottom.right', union_mode='left_to_right')
+    brand_watermark_dark: BrandWatermarkDark | Any = Field(None, alias='brand.watermark.dark', union_mode='left_to_right')
+    program_tile: ProgramTile4 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile3 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    brand_hub_background: BrandHubBackground | Any = Field(None, alias='brand.hub.background', union_mode='left_to_right')
 
 class PrimaryBranding(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    id: UUID | None = None
-    name: str | None = None
-    artwork: Artwork3 | None = None
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork3 | Any = Field(default=None, union_mode='left_to_right')
 
 class Item1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    href: str | None = None
-    name: str | None = None
-    description: str | None = None
-    artwork: Artwork2 | None = None
-    metrics_info: MetricsInfo1 | None = None
-    personalization: Personalization | None = None
-    device_context_failure: bool | None = None
-    browse: Browse1 | None = None
-    series_id: UUID | None = None
-    series_name: str | None = None
-    season: str | None = None
-    season_short_display_name: str | None = None
-    bundle: Bundle | None = None
-    number: str | None = None
-    rating: Rating | None = None
-    genre_names: list[str] | None = None
-    premiere_date: AwareDatetime | None = None
-    duration: int | None = None
-    is_first_run: bool | None = None
-    series_artwork: SeriesArtwork | None = None
-    restriction_level: str | None = None
-    exclusivity: str | None = None
-    actions: list[Any] | None = None
-    primary_branding: PrimaryBranding | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    description: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork2 | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo1 | Any = Field(default=None, union_mode='left_to_right')
+    personalization: Personalization | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse1 | Any = Field(default=None, union_mode='left_to_right')
+    series_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    series_name: str | Any = Field(default=None, union_mode='left_to_right')
+    season: str | Any = Field(default=None, union_mode='left_to_right')
+    season_short_display_name: str | Any = Field(default=None, union_mode='left_to_right')
+    bundle: Bundle | Any = Field(default=None, union_mode='left_to_right')
+    number: str | Any = Field(default=None, union_mode='left_to_right')
+    rating: Rating | Any = Field(default=None, union_mode='left_to_right')
+    genre_names: list[str] | Any = Field(default=None, union_mode='left_to_right')
+    premiere_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    is_first_run: bool | Any = Field(default=None, union_mode='left_to_right')
+    series_artwork: SeriesArtwork | Any = Field(default=None, union_mode='left_to_right')
+    restriction_level: str | Any = Field(default=None, union_mode='left_to_right')
+    exclusivity: str | Any = Field(default=None, union_mode='left_to_right')
+    actions: list[Any] | Any = Field(default=None, union_mode='left_to_right')
+    primary_branding: PrimaryBranding | Any = Field(default=None, union_mode='left_to_right')
 
 class Pagination(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    current_offset: int | None = None
-    total_count: int | None = None
-    next: str | None = None
+    current_offset: int | Any = Field(default=None, union_mode='left_to_right')
+    total_count: int | Any = Field(default=None, union_mode='left_to_right')
+    next: str | Any = Field(default=None, union_mode='left_to_right')
 
 class SeriesGroupingMetadata(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    series_grouping_type: str | None = None
-    season_number: int | None = None
-    grouping_name: str | None = Field(None, alias='groupingName')
-    unknown: bool | None = None
+    series_grouping_type: str | Any = Field(default=None, union_mode='left_to_right')
+    season_number: int | Any = Field(default=None, union_mode='left_to_right')
+    grouping_name: str | Any = Field(None, alias='groupingName', union_mode='left_to_right')
+    unknown: bool | Any = Field(default=None, union_mode='left_to_right')
 
 class MetricsInfo2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    reco_tags: str | None = None
-    external_identifiers: list[ExternalIdentifier] | None = None
-    selection_tracking_id: UUID | None = None
-    metrics_asset_name: str | None = None
-    airing_type: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    reco_tags: str | Any = Field(default=None, union_mode='left_to_right')
+    external_identifiers: list[ExternalIdentifier] | Any = Field(default=None, union_mode='left_to_right')
+    selection_tracking_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    metrics_asset_name: str | Any = Field(default=None, union_mode='left_to_right')
+    airing_type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermark1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkTopRight1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogo1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class NetworkTile1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkBottomRight1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoTopRight1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoBottomRight1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkDark1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandHubBackground1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    brand_watermark: BrandWatermark1 | None = Field(None, alias='brand.watermark')
-    brand_watermark_top_right: BrandWatermarkTopRight1 | None = Field(None, alias='brand.watermark.top.right')
-    brand_logo: BrandLogo1 | None = Field(None, alias='brand.logo')
-    network_tile: NetworkTile1 | None = Field(None, alias='network.tile')
-    brand_watermark_bottom_right: BrandWatermarkBottomRight1 | None = Field(None, alias='brand.watermark.bottom.right')
-    brand_logo_top_right: BrandLogoTopRight1 | None = Field(None, alias='brand.logo.top.right')
-    brand_logo_bottom_right: BrandLogoBottomRight1 | None = Field(None, alias='brand.logo.bottom.right')
-    brand_watermark_dark: BrandWatermarkDark1 | None = Field(None, alias='brand.watermark.dark')
-    program_tile: ProgramTile5 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile4 | None = Field(None, alias='program.vertical.tile')
-    brand_hub_background: BrandHubBackground1 | None = Field(None, alias='brand.hub.background')
+    brand_watermark: BrandWatermark1 | Any = Field(None, alias='brand.watermark', union_mode='left_to_right')
+    brand_watermark_top_right: BrandWatermarkTopRight1 | Any = Field(None, alias='brand.watermark.top.right', union_mode='left_to_right')
+    brand_logo: BrandLogo1 | Any = Field(None, alias='brand.logo', union_mode='left_to_right')
+    network_tile: NetworkTile1 | Any = Field(None, alias='network.tile', union_mode='left_to_right')
+    brand_watermark_bottom_right: BrandWatermarkBottomRight1 | Any = Field(None, alias='brand.watermark.bottom.right', union_mode='left_to_right')
+    brand_logo_top_right: BrandLogoTopRight1 | Any = Field(None, alias='brand.logo.top.right', union_mode='left_to_right')
+    brand_logo_bottom_right: BrandLogoBottomRight1 | Any = Field(None, alias='brand.logo.bottom.right', union_mode='left_to_right')
+    brand_watermark_dark: BrandWatermarkDark1 | Any = Field(None, alias='brand.watermark.dark', union_mode='left_to_right')
+    program_tile: ProgramTile5 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile4 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    brand_hub_background: BrandHubBackground1 | Any = Field(None, alias='brand.hub.background', union_mode='left_to_right')
 
 class PrimaryBranding1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    id: UUID | None = None
-    name: str | None = None
-    artwork: Artwork4 | None = None
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork4 | Any = Field(default=None, union_mode='left_to_right')
 
 class Bundle1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: int | None = None
-    eab_id: str | None = None
-    network_id: UUID | None = None
-    network_name: str | None = None
-    duration: int | None = None
-    availability: Availability | None = None
-    bundle_type: str | None = None
-    rating: str | None = None
-    open_credit_end_pos: int | None = None
-    close_credit_start_pos: int | None = None
-    rights: Rights | None = None
-    cp_id: int | None = None
-    all_etag: str | None = None
-    rights_etag: str | None = None
-    airings_etag: str | None = None
-    stream_etag: str | None = None
-    rights_ttl: int | None = None
-    airings_ttl: int | None = None
-    stream_ttl: int | None = None
-    package_id: int | None = None
-    av_features: list[str] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: int | Any = Field(default=None, union_mode='left_to_right')
+    eab_id: str | Any = Field(default=None, union_mode='left_to_right')
+    network_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    network_name: str | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    availability: Availability | Any = Field(default=None, union_mode='left_to_right')
+    bundle_type: str | Any = Field(default=None, union_mode='left_to_right')
+    rating: str | Any = Field(default=None, union_mode='left_to_right')
+    open_credit_end_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    close_credit_start_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    rights: Rights | Any = Field(default=None, union_mode='left_to_right')
+    cp_id: int | Any = Field(default=None, union_mode='left_to_right')
+    all_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    airings_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    stream_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    airings_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    stream_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    package_id: int | Any = Field(default=None, union_mode='left_to_right')
+    av_features: list[str] | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class SeriesArtwork1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    detail_vertical_hero: DetailVerticalHero3 | None = Field(None, alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal4 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile6 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile5 | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero3 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked3 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero4 | None = Field(None, alias='video.horizontal.hero')
+    detail_vertical_hero: DetailVerticalHero3 | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal4 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile6 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile5 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero3 | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked3 | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero4 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
 
 class Item(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | str | None = Field(default=None, union_mode='left_to_right')
-    href: str | None = None
-    p13n_href: str | None = None
-    name: str | None = None
-    theme: str | None = None
-    artwork: Artwork1 | None = None
-    device_context_failure: bool | None = None
-    items: list[Item1] | None = None
-    pagination: Pagination | None = None
-    series_grouping_metadata: SeriesGroupingMetadata | None = None
-    description: str | None = None
-    metrics_info: MetricsInfo2 | None = None
-    personalization: Personalization | None = None
-    browse: Browse1 | None = None
-    genre_names: list[str] | None = None
-    episodes: list[Any] | None = None
-    rating: Rating | None = None
-    premiere_date: AwareDatetime | None = None
-    restriction_level: str | None = None
-    exclusivity: str | None = None
-    is_rolling: bool | None = None
-    actions: list[Any] | None = None
-    primary_branding: PrimaryBranding1 | None = None
-    duration: int | None = None
-    series_id: UUID | None = None
-    series_name: str | None = None
-    season: str | None = None
-    bundle: Bundle1 | None = None
-    number: str | None = None
-    is_first_run: bool | None = None
-    series_artwork: SeriesArtwork1 | None = None
-    season_short_display_name: str | None = None
-    original_id: UUID | None = None
-    original_type: str | None = None
-    relationship: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | str | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    p13n_href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    theme: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork1 | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    items: list[Item1] | Any = Field(default=None, union_mode='left_to_right')
+    pagination: Pagination | Any = Field(default=None, union_mode='left_to_right')
+    series_grouping_metadata: SeriesGroupingMetadata | Any = Field(default=None, union_mode='left_to_right')
+    description: str | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo2 | Any = Field(default=None, union_mode='left_to_right')
+    personalization: Personalization | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse1 | Any = Field(default=None, union_mode='left_to_right')
+    genre_names: list[str] | Any = Field(default=None, union_mode='left_to_right')
+    episodes: list[Any] | Any = Field(default=None, union_mode='left_to_right')
+    rating: Rating | Any = Field(default=None, union_mode='left_to_right')
+    premiere_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    restriction_level: str | Any = Field(default=None, union_mode='left_to_right')
+    exclusivity: str | Any = Field(default=None, union_mode='left_to_right')
+    is_rolling: bool | Any = Field(default=None, union_mode='left_to_right')
+    actions: list[Any] | Any = Field(default=None, union_mode='left_to_right')
+    primary_branding: PrimaryBranding1 | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    series_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    series_name: str | Any = Field(default=None, union_mode='left_to_right')
+    season: str | Any = Field(default=None, union_mode='left_to_right')
+    bundle: Bundle1 | Any = Field(default=None, union_mode='left_to_right')
+    number: str | Any = Field(default=None, union_mode='left_to_right')
+    is_first_run: bool | Any = Field(default=None, union_mode='left_to_right')
+    series_artwork: SeriesArtwork1 | Any = Field(default=None, union_mode='left_to_right')
+    season_short_display_name: str | Any = Field(default=None, union_mode='left_to_right')
+    original_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    original_type: str | Any = Field(default=None, union_mode='left_to_right')
+    relationship: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Image(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
 
 class Horizontal(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    artwork_type: str | None = None
-    image: Image | None = None
-    text: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    artwork_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image: Image | Any = Field(default=None, union_mode='left_to_right')
+    text: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Image1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
 
 class Vertical(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    artwork_type: str | None = None
-    image: Image1 | None = None
-    text: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    artwork_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image: Image1 | Any = Field(default=None, union_mode='left_to_right')
+    text: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    horizontal: Horizontal | None = None
-    vertical: Vertical | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    horizontal: Horizontal | Any = Field(default=None, union_mode='left_to_right')
+    vertical: Vertical | Any = Field(default=None, union_mode='left_to_right')
 
 class Browse3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_type: str | None = None
-    target_id: UUID | None = None
-    target_theme: str | None = None
-    params: dict[str, Any] | None = None
-    type: str | None = None
+    target_type: str | Any = Field(default=None, union_mode='left_to_right')
+    target_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    target_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    params: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
+    type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Action(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | str | None = Field(default=None, union_mode='left_to_right')
-    name: str | None = None
-    position: int | None = None
-    href: str | None = None
-    theme: str | None = None
-    artwork: Artwork5 | None = None
-    browse: Browse3 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    position: int | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    theme: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork5 | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse3 | Any = Field(default=None, union_mode='left_to_right')
 
 class Pagination1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    current_offset: int | None = None
+    current_offset: int | Any = Field(default=None, union_mode='left_to_right')
 
 class FocusNavigation(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    collection_id: str | None = None
-    entity_id: UUID | None = None
+    collection_id: str | Any = Field(default=None, union_mode='left_to_right')
+    entity_id: UUID | Any = Field(default=None, union_mode='left_to_right')
 
 class Personalization2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    bowie_context: str | None = None
+    bowie_context: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Image2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
 
 class Horizontal1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    artwork_type: str | None = None
-    image: Image2 | None = None
-    text: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    artwork_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image: Image2 | Any = Field(default=None, union_mode='left_to_right')
+    text: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Image3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
 
 class Vertical1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    artwork_type: str | None = None
-    image: Image3 | None = None
-    text: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    artwork_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image: Image3 | Any = Field(default=None, union_mode='left_to_right')
+    text: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    horizontal: Horizontal1 | None = None
-    vertical: Vertical1 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    horizontal: Horizontal1 | Any = Field(default=None, union_mode='left_to_right')
+    vertical: Vertical1 | Any = Field(default=None, union_mode='left_to_right')
 
 class HubLink(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    href: str | None = None
-    name: str | None = None
-    theme: str | None = None
-    artwork: Artwork6 | None = None
-    browse: Browse3 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    theme: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork6 | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse3 | Any = Field(default=None, union_mode='left_to_right')
 
 class Component(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: str | None = None
-    href: str | None = None
-    name: str | None = None
-    theme: str | None = None
-    artwork: dict[str, Any] | None = None
-    device_context_failure: bool | None = None
-    items: list[Item] | None = None
-    actions: list[Action] | None = None
-    pagination: Pagination1 | None = None
-    focus_navigation: FocusNavigation | None = None
-    p13n_href: str | None = None
-    personalization: Personalization2 | None = None
-    is_fallback: bool | None = None
-    hub_link: HubLink | None = None
-    description: str | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: str | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    theme: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    items: list[Item] | Any = Field(default=None, union_mode='left_to_right')
+    actions: list[Action] | Any = Field(default=None, union_mode='left_to_right')
+    pagination: Pagination1 | Any = Field(default=None, union_mode='left_to_right')
+    focus_navigation: FocusNavigation | Any = Field(default=None, union_mode='left_to_right')
+    p13n_href: str | Any = Field(default=None, union_mode='left_to_right')
+    personalization: Personalization2 | Any = Field(default=None, union_mode='left_to_right')
+    is_fallback: bool | Any = Field(default=None, union_mode='left_to_right')
+    hub_link: HubLink | Any = Field(default=None, union_mode='left_to_right')
+    description: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoVerticalHero1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero5 | None = Field(None, alias='video.horizontal.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal5 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile7 | None = Field(None, alias='program.tile')
-    video_vertical_hero: VideoVerticalHero1 | None = Field(None, alias='video.vertical.hero')
+    video_horizontal_hero: VideoHorizontalHero5 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal5 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile7 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    video_vertical_hero: VideoVerticalHero1 | Any = Field(None, alias='video.vertical.hero', union_mode='left_to_right')
 
 class MetricsInfo3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    metrics_asset_name: str | None = None
-    airing_type: str | None = None
-    external_identifiers: list[ExternalIdentifier] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    metrics_asset_name: str | Any = Field(default=None, union_mode='left_to_right')
+    airing_type: str | Any = Field(default=None, union_mode='left_to_right')
+    external_identifiers: list[ExternalIdentifier] | Any = Field(default=None, union_mode='left_to_right')
 
 class Personalization3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    eab: str | None = None
+    eab: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Browse5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    target_type: str | None = None
-    target_id: UUID | None = None
-    target_theme: str | None = None
-    params: dict[str, Any] | None = None
-    href: str | None = None
-    browse_theme: str | None = None
-    type: str | None = None
+    target_type: str | Any = Field(default=None, union_mode='left_to_right')
+    target_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    target_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    params: dict[str, Any] | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    browse_theme: str | Any = Field(default=None, union_mode='left_to_right')
+    type: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Bundle2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: int | None = None
-    eab_id: str | None = None
-    network_id: UUID | None = None
-    network_name: str | None = None
-    duration: int | None = None
-    availability: Availability | None = None
-    bundle_type: str | None = None
-    rating: str | None = None
-    open_credit_end_pos: int | None = None
-    close_credit_start_pos: int | None = None
-    rights: Rights | None = None
-    cp_id: int | None = None
-    all_etag: str | None = None
-    rights_etag: str | None = None
-    airings_etag: str | None = None
-    stream_etag: str | None = None
-    rights_ttl: int | None = None
-    airings_ttl: int | None = None
-    stream_ttl: int | None = None
-    package_id: int | None = None
-    av_features: list[str] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: int | Any = Field(default=None, union_mode='left_to_right')
+    eab_id: str | Any = Field(default=None, union_mode='left_to_right')
+    network_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    network_name: str | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    availability: Availability | Any = Field(default=None, union_mode='left_to_right')
+    bundle_type: str | Any = Field(default=None, union_mode='left_to_right')
+    rating: str | Any = Field(default=None, union_mode='left_to_right')
+    open_credit_end_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    close_credit_start_pos: int | Any = Field(default=None, union_mode='left_to_right')
+    rights: Rights | Any = Field(default=None, union_mode='left_to_right')
+    cp_id: int | Any = Field(default=None, union_mode='left_to_right')
+    all_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    airings_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    stream_etag: str | Any = Field(default=None, union_mode='left_to_right')
+    rights_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    airings_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    stream_ttl: int | Any = Field(default=None, union_mode='left_to_right')
+    package_id: int | Any = Field(default=None, union_mode='left_to_right')
+    av_features: list[str] | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile8(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero6(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class SeriesArtwork2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    detail_vertical_hero: DetailVerticalHero4 | None = Field(None, alias='detail.vertical.hero')
-    title_treatment_horizontal: TitleTreatmentHorizontal6 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile8 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile6 | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero4 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked4 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero6 | None = Field(None, alias='video.horizontal.hero')
+    detail_vertical_hero: DetailVerticalHero4 | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    title_treatment_horizontal: TitleTreatmentHorizontal6 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile8 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile6 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero4 | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked4 | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero6 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
 
 class BrandWatermark2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkTopRight2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogo2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class NetworkTile2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkBottomRight2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoTopRight2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoBottomRight2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkDark2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile9(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandHubBackground2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork8(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    brand_watermark: BrandWatermark2 | None = Field(None, alias='brand.watermark')
-    brand_watermark_top_right: BrandWatermarkTopRight2 | None = Field(None, alias='brand.watermark.top.right')
-    brand_logo: BrandLogo2 | None = Field(None, alias='brand.logo')
-    network_tile: NetworkTile2 | None = Field(None, alias='network.tile')
-    brand_watermark_bottom_right: BrandWatermarkBottomRight2 | None = Field(None, alias='brand.watermark.bottom.right')
-    brand_logo_top_right: BrandLogoTopRight2 | None = Field(None, alias='brand.logo.top.right')
-    brand_logo_bottom_right: BrandLogoBottomRight2 | None = Field(None, alias='brand.logo.bottom.right')
-    brand_watermark_dark: BrandWatermarkDark2 | None = Field(None, alias='brand.watermark.dark')
-    program_tile: ProgramTile9 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile7 | None = Field(None, alias='program.vertical.tile')
-    brand_hub_background: BrandHubBackground2 | None = Field(None, alias='brand.hub.background')
+    brand_watermark: BrandWatermark2 | Any = Field(None, alias='brand.watermark', union_mode='left_to_right')
+    brand_watermark_top_right: BrandWatermarkTopRight2 | Any = Field(None, alias='brand.watermark.top.right', union_mode='left_to_right')
+    brand_logo: BrandLogo2 | Any = Field(None, alias='brand.logo', union_mode='left_to_right')
+    network_tile: NetworkTile2 | Any = Field(None, alias='network.tile', union_mode='left_to_right')
+    brand_watermark_bottom_right: BrandWatermarkBottomRight2 | Any = Field(None, alias='brand.watermark.bottom.right', union_mode='left_to_right')
+    brand_logo_top_right: BrandLogoTopRight2 | Any = Field(None, alias='brand.logo.top.right', union_mode='left_to_right')
+    brand_logo_bottom_right: BrandLogoBottomRight2 | Any = Field(None, alias='brand.logo.bottom.right', union_mode='left_to_right')
+    brand_watermark_dark: BrandWatermarkDark2 | Any = Field(None, alias='brand.watermark.dark', union_mode='left_to_right')
+    program_tile: ProgramTile9 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile7 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    brand_hub_background: BrandHubBackground2 | Any = Field(None, alias='brand.hub.background', union_mode='left_to_right')
 
 class PrimaryBranding2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    id: UUID | None = None
-    name: str | None = None
-    artwork: Artwork8 | None = None
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork8 | Any = Field(default=None, union_mode='left_to_right')
 
 class Entity(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    href: str | None = None
-    name: str | None = None
-    description: str | None = None
-    artwork: Artwork7 | None = None
-    metrics_info: MetricsInfo3 | None = None
-    personalization: Personalization3 | None = None
-    device_context_failure: bool | None = None
-    browse: Browse5 | None = None
-    series_id: UUID | None = None
-    series_name: str | None = None
-    season: str | None = None
-    season_short_display_name: str | None = None
-    bundle: Bundle2 | None = None
-    number: str | None = None
-    rating: Rating | None = None
-    genre_names: list[str] | None = None
-    premiere_date: AwareDatetime | None = None
-    duration: int | None = None
-    is_first_run: bool | None = None
-    series_artwork: SeriesArtwork2 | None = None
-    restriction_level: str | None = None
-    exclusivity: str | None = None
-    primary_branding: PrimaryBranding2 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    description: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork7 | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo3 | Any = Field(default=None, union_mode='left_to_right')
+    personalization: Personalization3 | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse5 | Any = Field(default=None, union_mode='left_to_right')
+    series_id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    series_name: str | Any = Field(default=None, union_mode='left_to_right')
+    season: str | Any = Field(default=None, union_mode='left_to_right')
+    season_short_display_name: str | Any = Field(default=None, union_mode='left_to_right')
+    bundle: Bundle2 | Any = Field(default=None, union_mode='left_to_right')
+    number: str | Any = Field(default=None, union_mode='left_to_right')
+    rating: Rating | Any = Field(default=None, union_mode='left_to_right')
+    genre_names: list[str] | Any = Field(default=None, union_mode='left_to_right')
+    premiere_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    duration: int | Any = Field(default=None, union_mode='left_to_right')
+    is_first_run: bool | Any = Field(default=None, union_mode='left_to_right')
+    series_artwork: SeriesArtwork2 | Any = Field(default=None, union_mode='left_to_right')
+    restriction_level: str | Any = Field(default=None, union_mode='left_to_right')
+    exclusivity: str | Any = Field(default=None, union_mode='left_to_right')
+    primary_branding: PrimaryBranding2 | Any = Field(default=None, union_mode='left_to_right')
 
 class MetricsInfo4(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    reco_tags: str | None = None
-    selection_tracking_id: UUID | None = None
+    reco_tags: str | Any = Field(default=None, union_mode='left_to_right')
+    selection_tracking_id: UUID | Any = Field(default=None, union_mode='left_to_right')
 
 class Focus(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    entity: Entity | None = None
-    action_text: str | None = None
-    metrics_info: MetricsInfo4 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    entity: Entity | Any = Field(default=None, union_mode='left_to_right')
+    action_text: str | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo4 | Any = Field(default=None, union_mode='left_to_right')
 
 class VodItems(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: str | None = None
-    collection_id: int | None = None
-    focus: Focus | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: str | Any = Field(default=None, union_mode='left_to_right')
+    collection_id: int | Any = Field(default=None, union_mode='left_to_right')
+    focus: Focus | Any = Field(default=None, union_mode='left_to_right')
 
 class UserState(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    is_warm: bool | None = None
-    is_cold: bool | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    is_warm: bool | Any = Field(default=None, union_mode='left_to_right')
+    is_cold: bool | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentHorizontal7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile10(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailVerticalHero5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile8(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class DetailHorizontalHero5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class TitleTreatmentStacked5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class VideoHorizontalHero7(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork9(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    title_treatment_horizontal: TitleTreatmentHorizontal7 | None = Field(None, alias='title.treatment.horizontal')
-    program_tile: ProgramTile10 | None = Field(None, alias='program.tile')
-    detail_vertical_hero: DetailVerticalHero5 | None = Field(None, alias='detail.vertical.hero')
-    program_vertical_tile: ProgramVerticalTile8 | None = Field(None, alias='program.vertical.tile')
-    detail_horizontal_hero: DetailHorizontalHero5 | None = Field(None, alias='detail.horizontal.hero')
-    title_treatment_stacked: TitleTreatmentStacked5 | None = Field(None, alias='title.treatment.stacked')
-    video_horizontal_hero: VideoHorizontalHero7 | None = Field(None, alias='video.horizontal.hero')
+    title_treatment_horizontal: TitleTreatmentHorizontal7 | Any = Field(None, alias='title.treatment.horizontal', union_mode='left_to_right')
+    program_tile: ProgramTile10 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    detail_vertical_hero: DetailVerticalHero5 | Any = Field(None, alias='detail.vertical.hero', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile8 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    detail_horizontal_hero: DetailHorizontalHero5 | Any = Field(None, alias='detail.horizontal.hero', union_mode='left_to_right')
+    title_treatment_stacked: TitleTreatmentStacked5 | Any = Field(None, alias='title.treatment.stacked', union_mode='left_to_right')
+    video_horizontal_hero: VideoHorizontalHero7 | Any = Field(None, alias='video.horizontal.hero', union_mode='left_to_right')
 
 class ExternalIdentifier3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    namespace: str | None = None
-    id: str | None = None
+    namespace: str | Any = Field(default=None, union_mode='left_to_right')
+    id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class MetricsInfo5(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    external_identifiers: list[ExternalIdentifier3] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    external_identifiers: list[ExternalIdentifier3] | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermark3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkTopRight3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogo3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class NetworkTile3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkBottomRight3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoTopRight3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandLogoBottomRight3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramTile11(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class ProgramVerticalTile9(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandWatermarkDark3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class BrandHubBackground3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    path: str | None = None
-    accent: Accent | None = None
-    image_type: str | None = None
-    image_id: str | None = None
+    path: str | Any = Field(default=None, union_mode='left_to_right')
+    accent: Accent | Any = Field(default=None, union_mode='left_to_right')
+    image_type: str | Any = Field(default=None, union_mode='left_to_right')
+    image_id: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Artwork10(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    brand_watermark: BrandWatermark3 | None = Field(None, alias='brand.watermark')
-    brand_watermark_top_right: BrandWatermarkTopRight3 | None = Field(None, alias='brand.watermark.top.right')
-    brand_logo: BrandLogo3 | None = Field(None, alias='brand.logo')
-    network_tile: NetworkTile3 | None = Field(None, alias='network.tile')
-    brand_watermark_bottom_right: BrandWatermarkBottomRight3 | None = Field(None, alias='brand.watermark.bottom.right')
-    brand_logo_top_right: BrandLogoTopRight3 | None = Field(None, alias='brand.logo.top.right')
-    brand_logo_bottom_right: BrandLogoBottomRight3 | None = Field(None, alias='brand.logo.bottom.right')
-    program_tile: ProgramTile11 | None = Field(None, alias='program.tile')
-    program_vertical_tile: ProgramVerticalTile9 | None = Field(None, alias='program.vertical.tile')
-    brand_watermark_dark: BrandWatermarkDark3 | None = Field(None, alias='brand.watermark.dark')
-    brand_hub_background: BrandHubBackground3 | None = Field(None, alias='brand.hub.background')
+    brand_watermark: BrandWatermark3 | Any = Field(None, alias='brand.watermark', union_mode='left_to_right')
+    brand_watermark_top_right: BrandWatermarkTopRight3 | Any = Field(None, alias='brand.watermark.top.right', union_mode='left_to_right')
+    brand_logo: BrandLogo3 | Any = Field(None, alias='brand.logo', union_mode='left_to_right')
+    network_tile: NetworkTile3 | Any = Field(None, alias='network.tile', union_mode='left_to_right')
+    brand_watermark_bottom_right: BrandWatermarkBottomRight3 | Any = Field(None, alias='brand.watermark.bottom.right', union_mode='left_to_right')
+    brand_logo_top_right: BrandLogoTopRight3 | Any = Field(None, alias='brand.logo.top.right', union_mode='left_to_right')
+    brand_logo_bottom_right: BrandLogoBottomRight3 | Any = Field(None, alias='brand.logo.bottom.right', union_mode='left_to_right')
+    program_tile: ProgramTile11 | Any = Field(None, alias='program.tile', union_mode='left_to_right')
+    program_vertical_tile: ProgramVerticalTile9 | Any = Field(None, alias='program.vertical.tile', union_mode='left_to_right')
+    brand_watermark_dark: BrandWatermarkDark3 | Any = Field(None, alias='brand.watermark.dark', union_mode='left_to_right')
+    brand_hub_background: BrandHubBackground3 | Any = Field(None, alias='brand.hub.background', union_mode='left_to_right')
 
 class PrimaryBranding3(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    id: UUID | None = None
-    name: str | None = None
-    artwork: Artwork10 | None = None
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork10 | Any = Field(default=None, union_mode='left_to_right')
 
 class Entity1(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    href: str | None = None
-    p13n_href: str | None = None
-    name: str | None = None
-    description: str | None = None
-    artwork: Artwork9 | None = None
-    metrics_info: MetricsInfo5 | None = None
-    personalization: Personalization3 | None = None
-    device_context_failure: bool | None = None
-    browse: Browse5 | None = None
-    genre_names: list[str] | None = None
-    episodes: list[Any] | None = None
-    rating: Rating | None = None
-    premiere_date: AwareDatetime | None = None
-    restriction_level: str | None = None
-    exclusivity: str | None = None
-    is_rolling: bool | None = None
-    actions: list[Any] | None = None
-    primary_branding: PrimaryBranding3 | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    p13n_href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    description: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork9 | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo5 | Any = Field(default=None, union_mode='left_to_right')
+    personalization: Personalization3 | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse5 | Any = Field(default=None, union_mode='left_to_right')
+    genre_names: list[str] | Any = Field(default=None, union_mode='left_to_right')
+    episodes: list[Any] | Any = Field(default=None, union_mode='left_to_right')
+    rating: Rating | Any = Field(default=None, union_mode='left_to_right')
+    premiere_date: AwareDatetime | Any = Field(default=None, union_mode='left_to_right')
+    restriction_level: str | Any = Field(default=None, union_mode='left_to_right')
+    exclusivity: str | Any = Field(default=None, union_mode='left_to_right')
+    is_rolling: bool | Any = Field(default=None, union_mode='left_to_right')
+    actions: list[Any] | Any = Field(default=None, union_mode='left_to_right')
+    primary_branding: PrimaryBranding3 | Any = Field(default=None, union_mode='left_to_right')
 
 class Item2(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    display_text: str | None = None
+    display_text: str | Any = Field(default=None, union_mode='left_to_right')
 
 class Credit(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    prefix: str | None = None
-    items: list[Item2] | None = None
+    prefix: str | Any = Field(default=None, union_mode='left_to_right')
+    items: list[Item2] | Any = Field(default=None, union_mode='left_to_right')
 
 class Details(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    vod_items: VodItems | None = None
-    user_state: UserState | None = None
-    entity: Entity1 | None = None
-    credits: list[Credit] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    vod_items: VodItems | Any = Field(default=None, union_mode='left_to_right')
+    user_state: UserState | Any = Field(default=None, union_mode='left_to_right')
+    entity: Entity1 | Any = Field(default=None, union_mode='left_to_right')
+    credits: list[Credit] | Any = Field(default=None, union_mode='left_to_right')
 
 class TVModel(BaseModel):
     model_config = ConfigDict(extra='ignore', defer_build=True)
-    field_type: str | None = Field(None, alias='_type')
-    id: UUID | None = None
-    href: str | None = None
-    name: str | None = None
-    theme: str | None = None
-    artwork: Artwork | None = None
-    metrics_info: MetricsInfo | None = None
-    device_context_failure: bool | None = None
-    browse: Browse | None = None
-    components: list[Component] | None = None
-    details: Details | None = None
-    actions: list[Any] | None = None
+    field_type: str | Any = Field(None, alias='_type', union_mode='left_to_right')
+    id: UUID | Any = Field(default=None, union_mode='left_to_right')
+    href: str | Any = Field(default=None, union_mode='left_to_right')
+    name: str | Any = Field(default=None, union_mode='left_to_right')
+    theme: str | Any = Field(default=None, union_mode='left_to_right')
+    artwork: Artwork | Any = Field(default=None, union_mode='left_to_right')
+    metrics_info: MetricsInfo | Any = Field(default=None, union_mode='left_to_right')
+    device_context_failure: bool | Any = Field(default=None, union_mode='left_to_right')
+    browse: Browse | Any = Field(default=None, union_mode='left_to_right')
+    components: list[Component] | Any = Field(default=None, union_mode='left_to_right')
+    details: Details | Any = Field(default=None, union_mode='left_to_right')
+    actions: list[Any] | Any = Field(default=None, union_mode='left_to_right')
     _raw_input: Any = PrivateAttr(default=None)
 
     @model_validator(mode='wrap')

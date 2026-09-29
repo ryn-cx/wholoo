@@ -1,11 +1,4 @@
-"""MoviesModel, strict to a type checker, all-optional at runtime.
-
-A type checker reads the strict model, so every field carries the type and
-the requiredness the schema recorded. At runtime the all-optional copy is imported
-instead, so a response that has drifted still parses and a field the data is
-missing is None despite what its type hint says.
-"""
-
+# ruff: noqa: D100
 from typing import TYPE_CHECKING
 
 from good_ass_pydantic_integrator import load
@@ -26,6 +19,7 @@ if TYPE_CHECKING:
         Artwork6,
         Artwork7,
         Availability,
+        Availability2,
         BrandHubBackground,
         BrandHubBackground1,
         BrandLogo,
@@ -58,6 +52,7 @@ if TYPE_CHECKING:
         DetailHorizontalHero1,
         DetailHorizontalHero2,
         DetailHorizontalHero3,
+        DetailHorizontalWide,
         DetailVerticalHero,
         DetailVerticalHero1,
         DetailVerticalHero2,
@@ -129,6 +124,7 @@ else:
         Artwork6,
         Artwork7,
         Availability,
+        Availability2,
         BrandHubBackground,
         BrandHubBackground1,
         BrandLogo,
@@ -161,6 +157,7 @@ else:
         DetailHorizontalHero1,
         DetailHorizontalHero2,
         DetailHorizontalHero3,
+        DetailHorizontalWide,
         DetailVerticalHero,
         DetailVerticalHero1,
         DetailVerticalHero2,
@@ -232,6 +229,7 @@ __all__ = [
     "Artwork6",
     "Artwork7",
     "Availability",
+    "Availability2",
     "BrandHubBackground",
     "BrandHubBackground1",
     "BrandLogo",
@@ -264,6 +262,7 @@ __all__ = [
     "DetailHorizontalHero1",
     "DetailHorizontalHero2",
     "DetailHorizontalHero3",
+    "DetailHorizontalWide",
     "DetailVerticalHero",
     "DetailVerticalHero1",
     "DetailVerticalHero2",

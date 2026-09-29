@@ -33,7 +33,7 @@ class VideoVerticalHero(BaseModel):
 
 class Artwork(BaseModel):
     model_config = ConfigDict(defer_build=True)
-    video_horizontal_hero: VideoHorizontalHero = Field(..., alias='video.horizontal.hero')
+    video_horizontal_hero: VideoHorizontalHero | None = Field(None, alias='video.horizontal.hero')
     program_tile: ProgramTile | None = Field(None, alias='program.tile')
     video_vertical_hero: VideoVerticalHero | None = Field(None, alias='video.vertical.hero')
 
@@ -174,13 +174,6 @@ class ProgramVerticalTile(BaseModel):
     image_type: str
     image_id: str
 
-class BrandHubBackground(BaseModel):
-    model_config = ConfigDict(defer_build=True)
-    path: str
-    accent: Accent
-    image_type: str
-    image_id: str
-
 class Artwork1(BaseModel):
     model_config = ConfigDict(defer_build=True)
     brand_watermark: BrandWatermark = Field(..., alias='brand.watermark')
@@ -193,7 +186,6 @@ class Artwork1(BaseModel):
     brand_watermark_dark: BrandWatermarkDark | None = Field(None, alias='brand.watermark.dark')
     program_tile: ProgramTile1 | None = Field(None, alias='program.tile')
     program_vertical_tile: ProgramVerticalTile | None = Field(None, alias='program.vertical.tile')
-    brand_hub_background: BrandHubBackground | None = Field(None, alias='brand.hub.background')
 
 class PrimaryBranding(BaseModel):
     model_config = ConfigDict(defer_build=True)
